@@ -15,6 +15,13 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+env:
+  # Project sites are served from /<repo>/, so the build needs the base path.
+  # `basePathRewrite` in astro.config.mjs then prefixes the root-absolute URLs
+  # authored in components and markdown.
+  GH_PAGES_BASE: /devil-ui
+  SITE_URL: https://hellwrk.github.io
+
 jobs:
   build:
     name: Build docs
@@ -29,19 +36,24 @@ jobs:
       - name: Install Dependencies
         uses: ./.github/actions/install-dependencies
 
-      - uses: ./.github/actions/vite-task-cache
-
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      # Project sites live under /<repo>/, so the site is built with a base
-      # path. `basePathRewrite` in astro.config.mjs then prefixes the
-      # root-absolute URLs authored in components and markdown.
+      # Built with plain package scripts rather than `vp run build:docs`: the
+      # Vite+ task cache is keyed on inputs, not env, so a concurrently warmed
+      # entry (built without GH_PAGES_BASE) would be replayed verbatim.
+      - name: Build devil-ui
+        run: pnpm --filter @hellwrk/devil-ui build
+
       - name: Build docs
-        env:
-          GH_PAGES_BASE: /devil-ui
-          SITE_URL: https://hellwrk.github.io
-        run: vp run build:docs
+        run: pnpm --filter @cloudflare/kumo-docs-astro build
+
+      - name: Verify base path was applied
+        run: |
+          if ! grep -q "/devil-ui/_astro/" packages/kumo-docs-astro/dist/index.html; then
+            echo "::error::Built HTML is missing the /devil-ui base path"
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
