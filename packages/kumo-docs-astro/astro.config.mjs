@@ -8,7 +8,10 @@ import { execSync } from "child_process";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import { fileURLToPath } from "url";
-import { devilColorsPlugin } from "./src/lib/vite-plugin-devil-colors.js";
+import {
+  devilColorsPlugin,
+  loadDevilColorsFromPackage,
+} from "./src/lib/vite-plugin-devil-colors.js";
 import { devilRegistryPlugin } from "./src/lib/vite-plugin-devil-registry.js";
 import { devilHmrPlugin } from "./src/lib/vite-plugin-devil-hmr.js";
 import { markdownPages } from "./src/lib/astro-markdown-pages.js";
@@ -126,6 +129,11 @@ const devilSrc = resolve(__dirname, "../devil-ui/src");
 const siteUrl = process.env.SITE_URL?.trim() || "https://hellwrk.github.io";
 const basePath = process.env.GH_PAGES_BASE?.trim() || "";
 
+// In dev the colors plugin reads the source config through Vite for live HMR.
+// Builds read the built package here, in Node, since Vite's module runner is
+// unavailable by the time pages render.
+const staticDevilColors = isDev ? undefined : await loadDevilColorsFromPackage();
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -164,7 +172,7 @@ export default defineConfig({
       // before Tailwind processes them.
       ...(isDev ? [devilHmrPlugin()] : []),
       tailwindcss(),
-      devilColorsPlugin(),
+      devilColorsPlugin({ dev: isDev, staticColors: staticDevilColors }),
       devilRegistryPlugin(),
     ],
 

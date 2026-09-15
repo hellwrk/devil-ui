@@ -102,29 +102,41 @@ function getColorsFromConfig(
 }
 
 /**
+ * Resolve the color tokens from the built devil-ui package.
+ *
+ * Must be called from Node context (astro.config), not from inside a Vite
+ * hook: a bare-specifier `import()` issued there is routed through Vite's
+ * SSR module runner, which is already shut down when the build renders pages.
+ */
+export async function loadDevilColorsFromPackage(): Promise<ColorToken[]> {
+  const mod = await import("@hellwrk/devil-ui/scripts/theme-generator/config");
+  return getColorsFromConfig(mod.THEME_CONFIG, mod.AVAILABLE_THEMES);
+}
+
+/**
  * Vite plugin that provides color token data as a virtual module.
  * Uses config.ts as the single source of truth - no CSS parsing needed.
  *
  * In dev mode, uses Vite's ssrLoadModule to import the source .ts file
  * directly — changes to config.ts are reflected without rebuilding devil.
- * In production builds, uses the static import from the built dist/.
+ * In production builds, imports the built package instead.
  *
+ * @param options.dev - `true` only for `astro dev`. Callers pass the argv
+ *   check rather than reading Vite's `config.command`: during `astro build`
+ *   Astro still spins up an SSR Vite server in `serve` mode, and calling
+ *   `ssrLoadModule` on it crashes the build once the runner closes.
  * @returns Astro/Vite compatible plugin
  */
-export function devilColorsPlugin() {
+export function devilColorsPlugin(
+  options: { dev?: boolean; staticColors?: ColorToken[] } = {},
+) {
+  const isDevMode = options.dev === true;
+  const staticColors = options.staticColors;
   // Reference to the Vite dev server (set during configureServer).
-  // Only used in actual dev mode — Astro's build also creates a server
-  // for SSR, but ssrLoadModule can hang during build, so we track the
-  // real mode via the config hook.
   let server: any = null;
-  let isDevMode = false;
 
   return {
     name: "vite-plugin-devil-colors",
-
-    config(_: unknown, env: { command: string }) {
-      isDevMode = env.command === "serve";
-    },
 
     resolveId(id: string) {
       if (id === VIRTUAL_MODULE_ID) {
@@ -134,24 +146,19 @@ export function devilColorsPlugin() {
 
     async load(id: string) {
       if (id === RESOLVED_VIRTUAL_MODULE_ID) {
-        let THEME_CONFIG: ThemeConfig;
-        let AVAILABLE_THEMES: readonly string[];
+        let colors: ColorToken[];
 
         if (isDevMode && server) {
           // Dev mode: load source .ts directly via Vite's module runner.
           // This always reads the latest file contents — no build needed.
           const mod = await server.ssrLoadModule(configFile);
-          THEME_CONFIG = mod.THEME_CONFIG;
-          AVAILABLE_THEMES = mod.AVAILABLE_THEMES;
+          colors = getColorsFromConfig(mod.THEME_CONFIG, mod.AVAILABLE_THEMES);
         } else {
-          // Production build: resolved at request time from the built package
-          // so loading astro.config itself never requires a devil-ui build.
-          const mod = await import("@hellwrk/devil-ui/scripts/theme-generator/config");
-          THEME_CONFIG = mod.THEME_CONFIG;
-          AVAILABLE_THEMES = mod.AVAILABLE_THEMES;
+          // Production build: precomputed in astro.config (Node context).
+          // Importing the package from inside this hook would be handled by
+          // Vite's module runner, which is already closed at this point.
+          colors = staticColors ?? [];
         }
-
-        const colors = getColorsFromConfig(THEME_CONFIG, AVAILABLE_THEMES);
 
         return `
 export const devilColors = ${JSON.stringify(colors, null, 2)};
