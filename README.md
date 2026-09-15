@@ -6,6 +6,13 @@
 
 <p align="center">A themeable, accessible React component library built on Base UI and Tailwind v4.</p>
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/@hellwrk/devil-ui"><img src="https://img.shields.io/npm/v/@hellwrk/devil-ui?label=npm&labelColor=cc0000&color=0a0a0a" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@hellwrk/devil-ui"><img src="https://img.shields.io/npm/dm/@hellwrk/devil-ui?label=downloads&labelColor=cc0000&color=0a0a0a" alt="npm downloads per month" /></a>
+  <a href="https://www.npmjs.com/package/@hellwrk/devil-ui"><img src="https://img.shields.io/npm/unpacked-size/@hellwrk/devil-ui?label=size&labelColor=cc0000&color=0a0a0a" alt="npm package size" /></a>
+  <a href="https://github.com/hellwrk/devil-ui/actions/workflows/deploy-pages.yml"><img src="https://img.shields.io/github/actions/workflow/status/hellwrk/devil-ui/deploy-pages.yml?label=docs&labelColor=cc0000&color=0a0a0a" alt="docs deploy status" /></a>
+</p>
+
 devil-ui provides accessible, design-system-compliant UI components built on [Base UI](https://base-ui.com/). It handles keyboard navigation, focus management, and ARIA attributes so you can build accessible applications without thinking through every detail.
 
 ## Installation
