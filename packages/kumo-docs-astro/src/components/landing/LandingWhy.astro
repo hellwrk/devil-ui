@@ -1,0 +1,52 @@
+---
+import { Reveal } from "./Reveal";
+
+const rows = [
+  {
+    n: "01",
+    title: "Accessible out of the box",
+    body: "Built on Base UI primitives with correct ARIA, focus management and keyboard navigation — plus dev-time warnings when a control lacks a name.",
+  },
+  {
+    n: "02",
+    title: "One theme, every mode",
+    body: "Semantic tokens adapt to light and dark automatically via light-dark(). No dark: variants, no hardcoded palette — switch themes with a data attribute.",
+  },
+  {
+    n: "03",
+    title: "Own your blocks",
+    body: "Components stay versioned in the package; patterns ship as CLI-installed blocks you copy and customize. Composition first, no black boxes.",
+  },
+  {
+    n: "04",
+    title: "Pay for what you import",
+    body: "Granular per-component entries, bundled dependencies and aggressive tree-shaking. Apps that skip a feature ship zero bytes for it.",
+  },
+];
+---
+
+<section id="why" class="scroll-mt-20 border-b border-devil-hairline">
+  <div class="px-4 py-16 md:px-6 md:py-24">
+  <Reveal client:visible>
+    <h2 class="text-3xl font-semibold tracking-tight">Why devil-ui?</h2>
+    <p class="mt-2 max-w-2xl text-devil-subtle">
+      A design system that stays out of your way until you need it.
+    </p>
+  </Reveal>
+  <div class="mt-8">
+    {
+      rows.map((row) => (
+        <Reveal client:visible>
+          <div class="grid gap-1.5 border-t border-devil-hairline py-7 transition-colors last:border-b hover:bg-devil-tint/40 md:grid-cols-[64px_1fr_1.4fr] md:items-baseline md:gap-6 md:px-3">
+            <span class="font-mono text-sm text-devil-brand">{row.n}</span>
+            <h3 class="text-lg font-semibold tracking-tight">{row.title}</h3>
+            <p class="max-w-xl text-sm leading-relaxed text-devil-subtle md:text-[15px]">
+              {row.body}
+            </p>
+          </div>
+        </Reveal>
+      ))
+    }
+  </div>
+  </div>
+</section>

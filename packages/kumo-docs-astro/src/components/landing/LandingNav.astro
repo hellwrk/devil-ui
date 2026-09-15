@@ -1,0 +1,63 @@
+---
+import { LinkButton } from "@hellwrk/devil-ui";
+
+declare const __DEVIL_VERSION__: string;
+
+const devilVersion =
+  typeof __DEVIL_VERSION__ !== "undefined" ? __DEVIL_VERSION__ : "dev";
+
+const links = [
+  { label: "Why", href: "#why" },
+  { label: "Showcase", href: "#showcase" },
+  { label: "Start", href: "#start" },
+  { label: "Capabilities", href: "#heat" },
+];
+---
+
+<nav class="fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-6">
+    <a href="#top" class="flex items-center gap-2.5" aria-label="devil-ui home">
+      <img
+        src="/devil-ui-hd.png"
+        alt=""
+        aria-hidden="true"
+        class="h-6 w-6 rounded object-contain"
+      />
+      <span
+        class="text-base font-semibold tracking-tight text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
+      >
+        devil-ui
+      </span>
+      <span
+        class="hidden rounded bg-black/40 px-1.5 py-0.5 font-mono text-xs text-white/80 backdrop-blur-sm sm:inline"
+      >
+        v{devilVersion}
+      </span>
+    </a>
+
+    <div class="hidden items-center gap-7 md:flex">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm text-white/75 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] transition-colors hover:text-white"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="flex items-center gap-2.5">
+      <a
+        href="/"
+        class="hidden rounded-lg px-3 py-2 text-sm text-white/75 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] transition-colors hover:text-white sm:block"
+      >
+        Docs
+      </a>
+      <LinkButton href="/installation" variant="primary" size="sm">
+        Get started
+      </LinkButton>
+    </div>
+  </div>
+</nav>

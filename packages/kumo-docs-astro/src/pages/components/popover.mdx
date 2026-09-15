@@ -1,0 +1,253 @@
+---
+layout: ~/layouts/MdxDocLayout.astro
+title: "Popover"
+description: "An accessible popup anchored to a trigger element, used for displaying rich content like menus, forms, or additional information."
+sourceFile: "components/popover"
+baseUIComponent: "popover"
+---
+
+import ComponentExample from "~/components/docs/ComponentExample.astro";
+import ComponentSection from "~/components/docs/ComponentSection.astro";
+import PropsTable from "~/components/docs/PropsTable.astro";
+import {
+  PopoverHeroDemo,
+  PopoverBasicDemo,
+  PopoverWithCloseDemo,
+  PopoverPositionDemo,
+  PopoverCustomContentDemo,
+  PopoverOpenOnHoverDemo,
+  PopoverVirtualAnchorDemo,
+} from "~/components/demos/PopoverDemo";
+
+{/* Hero Demo */}
+
+<ComponentSection>
+  <ComponentExample demo="PopoverHeroDemo">
+    <PopoverHeroDemo client:load />
+  </ComponentExample>
+</ComponentSection>
+
+{/* Installation */}
+
+<ComponentSection>
+
+## Installation
+
+### Barrel
+
+```tsx
+import { Popover } from "@hellwrk/devil-ui";
+```
+
+### Granular
+
+```tsx
+import { Popover } from "@hellwrk/devil-ui/components/popover";
+```
+
+</ComponentSection>
+
+{/* Usage */}
+
+<ComponentSection>
+
+## Usage
+
+```tsx
+import { Popover, Button } from "@hellwrk/devil-ui";
+
+export default function Example() {
+  return (
+    <Popover>
+      <Popover.Trigger render={<Button />}>Open</Popover.Trigger>
+      <Popover.Content>
+        <Popover.Title>Popover Title</Popover.Title>
+        <Popover.Description>Popover content goes here.</Popover.Description>
+      </Popover.Content>
+    </Popover>
+  );
+}
+```
+
+</ComponentSection>
+
+{/* Popover vs Tooltip */}
+
+<ComponentSection>
+
+## Popover vs Tooltip
+
+  <p>
+    While popovers can be triggered on hover (using `openOnHover`), they serve a
+    different purpose than tooltips. Understanding when to use each is important
+    for accessibility and user experience.
+  </p>
+  <div class="overflow-hidden rounded-lg border border-devil-hairline">
+    <table class="w-full text-sm">
+      <thead class="bg-devil-elevated">
+        <tr>
+          <th class="px-4 py-3 text-left font-semibold"></th>
+          <th class="px-4 py-3 text-left font-semibold">Tooltip</th>
+          <th class="px-4 py-3 text-left font-semibold">Popover</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-devil-hairline">
+        <tr>
+          <td class="px-4 py-3 font-medium">Purpose</td>
+          <td class="px-4 py-3 text-devil-subtle">
+            Short, non-interactive text labels for identification
+          </td>
+          <td class="px-4 py-3 text-devil-subtle">
+            Rich, interactive content containers
+          </td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3 font-medium">Content</td>
+          <td class="px-4 py-3 text-devil-subtle">Plain text only</td>
+          <td class="px-4 py-3 text-devil-subtle">
+            Any content: links, buttons, forms, images
+          </td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3 font-medium">Trigger</td>
+          <td class="px-4 py-3 text-devil-subtle">Hover or focus</td>
+          <td class="px-4 py-3 text-devil-subtle">Click (default) or hover</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3 font-medium">ARIA Role</td>
+          <td class="px-4 py-3">
+            `role="tooltip"`
+          </td>
+          <td class="px-4 py-3">
+            `aria-haspopup`
+          </td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3 font-medium">Keyboard</td>
+          <td class="px-4 py-3 text-devil-subtle">Not focusable</td>
+          <td class="px-4 py-3 text-devil-subtle">
+            Focus moves inside, traps when open
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    <strong>Use a Tooltip</strong> when you need to label an icon button or
+    provide a brief explanation. <strong>Use a Popover</strong> when users need
+    to interact with the content inside, such as clicking links, filling out
+    forms, or dismissing with a button.
+  </p>
+</ComponentSection>
+
+{/* Examples */}
+
+<ComponentSection>
+
+## Examples
+
+### Basic Popover
+
+<ComponentExample demo="PopoverBasicDemo">
+  <PopoverBasicDemo client:load />
+</ComponentExample>
+
+### With Close Button
+
+<ComponentExample demo="PopoverWithCloseDemo">
+  <PopoverWithCloseDemo client:load />
+</ComponentExample>
+
+### Positioning
+
+<p>
+  Use the `side` prop to control where the popover appears relative to the
+  trigger.
+</p>
+<ComponentExample demo="PopoverPositionDemo">
+  <PopoverPositionDemo client:load />
+</ComponentExample>
+
+### Custom Content
+
+<p>
+  Popovers can contain any content, including custom layouts with avatars,
+  buttons, and more.
+</p>
+<ComponentExample demo="PopoverCustomContentDemo">
+  <PopoverCustomContentDemo client:load />
+</ComponentExample>
+
+### Open on Hover
+
+<p>
+  Use `openOnHover` on the trigger to open the popover when the user hovers over
+  it. You can also specify a `delay` in milliseconds before the popover appears.
+</p>
+<ComponentExample demo="PopoverOpenOnHoverDemo">
+  <PopoverOpenOnHoverDemo client:load />
+</ComponentExample>
+
+### Virtual Anchor
+
+<p>
+  Use the `anchor` prop on `Popover.Content` to position the popover against an
+  element other than the trigger, or against a virtual point (e.g., a `DOMRect`
+  from `getBoundingClientRect()`). This is useful when the trigger and the
+  desired anchor are in different component trees.
+</p>
+<ComponentExample demo="PopoverVirtualAnchorDemo">
+  <PopoverVirtualAnchorDemo client:load />
+</ComponentExample>
+
+</ComponentSection>
+
+{/* API Reference */}
+
+<ComponentSection>
+
+## API Reference
+
+### Popover
+
+<p>The root component that manages the popover's open state.</p>
+<PropsTable component="Popover" />
+
+### Popover.Trigger
+
+<p>
+  A button that opens the popover when clicked. Use `render` to render your own
+  element.
+</p>
+<PropsTable component="Popover.Trigger" />
+
+### Popover.Content
+
+<p>
+  The container for popover content. Controls positioning via `side`, `align`,
+  `sideOffset`, and `alignOffset` props. Use the `anchor` prop to position
+  against a custom element or virtual point instead of the trigger. Use
+  `positionMethod="fixed"` when the popover needs to escape stacking contexts,
+  such as when inside sticky headers.
+</p>
+<PropsTable component="Popover.Content" />
+
+### Popover.Title
+
+<p>A heading that labels the popover for accessibility.</p>
+<PropsTable component="Popover.Title" />
+
+### Popover.Description
+
+<p>A paragraph providing additional context about the popover content.</p>
+<PropsTable component="Popover.Description" />
+
+### Popover.Close
+
+<p>
+  A button that closes the popover when clicked. Use `render` to render your own
+  element.
+</p>
+<PropsTable component="Popover.Close" />
+
+</ComponentSection>

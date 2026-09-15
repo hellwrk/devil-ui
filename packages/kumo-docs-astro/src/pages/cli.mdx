@@ -1,0 +1,53 @@
+---
+layout: ~/layouts/MdxDocLayout.astro
+title: "CLI"
+description: "Access component documentation and install blocks from your terminal."
+---
+
+import { CLITerminal } from "~/components/demos/CLIDemo";
+
+## Installation
+
+The Devil CLI is available via npx. No installation required.
+
+```bash
+npx @hellwrk/devil-ui help
+```
+
+## Commands
+
+### Blocks
+
+Install copy-paste blocks into your project for full customization.
+
+```bash
+# Initialize devil-ui.json configuration
+npx @hellwrk/devil-ui init
+
+# List all available blocks
+npx @hellwrk/devil-ui blocks
+
+# Install a block to your project
+npx @hellwrk/devil-ui add PageHeader
+```
+
+### Component Registry
+
+Access component documentation directly from your terminal.
+
+```bash
+# List all Devil components with categories
+npx @hellwrk/devil-ui ls
+
+# Get detailed documentation for a component
+npx @hellwrk/devil-ui doc Button
+
+# Get documentation for all components
+npx @hellwrk/devil-ui docs
+```
+
+## Try it out
+
+Type commands in the interactive terminal below to explore the CLI.
+
+<CLITerminal client:load />

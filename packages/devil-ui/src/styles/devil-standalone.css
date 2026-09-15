@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "./devil-binding.css";
+
+/* 
+ * Devil Standalone CSS
+ * This file will be compiled to standard CSS for non-Tailwind applications.
+ * It includes all Tailwind utilities and Devil component styles.
+ */

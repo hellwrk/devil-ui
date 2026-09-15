@@ -1,0 +1,535 @@
+import {
+  forwardRef,
+  createContext,
+  useContext,
+  type ReactNode,
+  type ReactElement,
+  type ForwardedRef,
+} from "react";
+import { cn } from "../../utils/cn";
+import { resolveVariant } from "../../utils/resolve-variant";
+import { Fieldset } from "@base-ui/react/fieldset";
+import {
+  RadioGroup as BaseRadioGroup,
+  type RadioGroup as BaseRadioGroupNamespace,
+} from "@base-ui/react/radio-group";
+import { Radio as BaseRadio } from "@base-ui/react/radio";
+
+/**
+ * Event details passed as the second argument to `onValueChange`. Carries the
+ * native event and interaction metadata. Re-exported from Base UI.
+ */
+export type RadioGroupChangeEventDetails =
+  BaseRadioGroupNamespace.ChangeEventDetails;
+
+/** Radio variant definitions mapping variant names to their Tailwind classes. */
+export const DEVIL_RADIO_VARIANTS = {
+  variant: {
+    default: {
+      classes: "ring-devil-hairline",
+      description: "Default radio appearance",
+    },
+    error: {
+      classes: "ring-devil-danger",
+      description: "Error state for validation failures",
+    },
+  },
+  appearance: {
+    default: {
+      classes: "",
+      description: "Standard inline radio item",
+    },
+    card: {
+      classes:
+        "rounded-lg border border-devil-hairline bg-devil-base p-3 transition-colors hover:bg-devil-tint has-[[data-checked]]:border-devil-interact has-[[data-checked]]:bg-devil-tint",
+      description:
+        "Choice card appearance with border, padding, and highlighted selection state",
+    },
+  },
+} as const;
+
+export const DEVIL_RADIO_DEFAULT_VARIANTS = {
+  variant: "default",
+  appearance: "default",
+} as const;
+
+// Derived types from DEVIL_RADIO_VARIANTS
+export type DevilRadioVariant = keyof typeof DEVIL_RADIO_VARIANTS.variant;
+export type DevilRadioAppearance = keyof typeof DEVIL_RADIO_VARIANTS.appearance;
+
+export interface DevilRadioVariantsProps {
+  /**
+   * Visual variant.
+   * - `"default"` — Standard radio appearance
+   * - `"error"` — Error state for validation failures
+   * @default "default"
+   */
+  variant?: DevilRadioVariant;
+  /**
+   * Visual appearance.
+   * - `"default"` — Standard inline radio item
+   * - `"card"` — Choice card with border, padding, and highlighted selection state
+   * @default "default"
+   */
+  appearance?: DevilRadioAppearance;
+}
+
+export function radioVariants({
+  variant = DEVIL_RADIO_DEFAULT_VARIANTS.variant,
+  appearance = DEVIL_RADIO_DEFAULT_VARIANTS.appearance,
+}: DevilRadioVariantsProps = {}) {
+  return cn(
+    resolveVariant(
+      DEVIL_RADIO_VARIANTS.variant,
+      variant,
+      DEVIL_RADIO_DEFAULT_VARIANTS.variant,
+    ).classes,
+    resolveVariant(
+      DEVIL_RADIO_VARIANTS.appearance,
+      appearance,
+      DEVIL_RADIO_DEFAULT_VARIANTS.appearance,
+    ).classes,
+  );
+}
+
+// Legacy type alias for backwards compatibility
+export type RadioVariant = DevilRadioVariant;
+
+/** Position of the radio control relative to its label */
+export type RadioControlPosition = "start" | "end";
+
+// Context for passing controlPosition and appearance from Group to Items.
+// `controlPosition` may be undefined so each item can fall back to an
+// appearance-appropriate default (start for default, end for card).
+const RadioGroupContext = createContext<{
+  controlPosition: RadioControlPosition | undefined;
+  appearance: DevilRadioAppearance;
+}>({
+  controlPosition: undefined,
+  appearance: "default",
+});
+
+/**
+ * Radio group component props (with built-in Fieldset and RadioGroup)
+ *
+ * @example
+ * // Basic usage
+ * ```tsx
+ * <Radio.Group legend="Notification preference" defaultValue="email">
+ *   <Radio.Item label="Email" value="email" />
+ *   <Radio.Item label="SMS" value="sms" />
+ *   <Radio.Item label="Push" value="push" />
+ * </Radio.Group>
+ * ```
+ *
+ * @example
+ * // Horizontal layout
+ * ```tsx
+ * <Radio.Group legend="Size" orientation="horizontal" defaultValue="md">
+ *   <Radio.Item label="Small" value="sm" />
+ *   <Radio.Item label="Medium" value="md" />
+ *   <Radio.Item label="Large" value="lg" />
+ * </Radio.Group>
+ * ```
+ *
+ * @example
+ * // With error and description
+ * ```tsx
+ * <Radio.Group
+ *   legend="Payment method"
+ *   error="Please select a payment method"
+ *   description="Choose how you'd like to pay"
+ * >
+ *   <Radio.Item label="Credit Card" value="card" />
+ *   <Radio.Item label="PayPal" value="paypal" />
+ * </Radio.Group>
+ * ```
+ *
+ * @example
+ * // Controlled
+ * ```tsx
+ * const [value, setValue] = useState("email");
+ * <Radio.Group legend="Contact" value={value} onValueChange={setValue}>
+ *   <Radio.Item label="Email" value="email" />
+ *   <Radio.Item label="Phone" value="phone" />
+ * </Radio.Group>
+ * ```
+ *
+ * @example
+ * // Label before radio (controlPosition="end")
+ * ```tsx
+ * <Radio.Group legend="Options" controlPosition="end" defaultValue="a">
+ *   <Radio.Item label="Option A" value="a" />
+ *   <Radio.Item label="Option B" value="b" />
+ * </Radio.Group>
+ * ```
+ *
+ * @example
+ * // Typed values — pass a type parameter to constrain `value`
+ * ```tsx
+ * <Radio.Group<number> legend="Items per page" defaultValue={10}>
+ *   <Radio.Item<number> label="10" value={10} />
+ *   <Radio.Item<number> label="25" value={25} />
+ * </Radio.Group>
+ * ```
+ */
+/**
+ * Props for Radio.Legend — a composable sub-component for labeling a Radio.Group.
+ *
+ * Place as a direct child of `<Radio.Group>` to provide a styled, accessible legend.
+ * Accepts `className` for full styling control (e.g. `className="sr-only"` to visually hide).
+ *
+ * @example
+ * ```tsx
+ * <Radio.Group>
+ *   <Radio.Legend className="sr-only">Paths</Radio.Legend>
+ *   <Radio.Item label="Allow all paths" value="all" />
+ * </Radio.Group>
+ * ```
+ */
+export interface RadioLegendProps {
+  /** Legend content */
+  children: ReactNode;
+  /** Additional CSS classes (e.g. "sr-only" to visually hide the legend) */
+  className?: string;
+}
+
+/**
+ * Radio.Group component props.
+ *
+ * Parameterised by the radio value type `Value` (defaults to `string`). Pass a
+ * type argument — e.g. `<Radio.Group<number>>` — to type `value`,
+ * `defaultValue`, and the value passed to `onValueChange`.
+ *
+ * Note: the generic only types the group-level value props. It does **not**
+ * guarantee that the `value` of each `Radio.Item` child conforms to `Value`,
+ * since children are passed as `ReactNode` and are not cross-checked at compile
+ * time. Annotate items (`<Radio.Item<number>>`) for matching inference.
+ */
+export interface RadioGroupProps<Value = string> {
+  /**
+   * Legend text for the group (required for accessibility).
+   * For more control over legend styling, omit this prop and use `<Radio.Legend>` as a child instead.
+   */
+  legend?: string;
+  /** Child Radio.Item components (and optionally a Radio.Legend) */
+  children: ReactNode;
+  /** Layout direction of the radio items */
+  orientation?: "vertical" | "horizontal";
+  /**
+   * Visual appearance applied to all Radio.Item children.
+   * - `"default"` — Standard inline radio items
+   * - `"card"` — Choice card with border, padding, and highlighted selection state
+   *
+   * Individual items can override this with their own `appearance` prop.
+   * @default "default"
+   */
+  appearance?: DevilRadioAppearance;
+  /** Error message for the group */
+  error?: string;
+  /** Helper text for the group */
+  description?: ReactNode;
+  /** Value of the radio that should be initially selected (uncontrolled) */
+  defaultValue?: Value;
+  /** Value of the radio that should be selected (controlled) */
+  value?: Value;
+  /**
+   * Event handler called when the radio value changes. The second argument
+   * carries native event details about the interaction.
+   */
+  onValueChange?: (
+    value: Value,
+    eventDetails: RadioGroupChangeEventDetails,
+  ) => void;
+  /** Whether all radios in the group are disabled */
+  disabled?: boolean;
+  /** Position of radio control relative to label: "start" puts radio before label, "end" puts label before radio. Defaults to "start" for default appearance and "end" for card appearance. */
+  controlPosition?: RadioControlPosition;
+  /** Form submission name for the radio group */
+  name?: string;
+  /** Additional CSS classes */
+  className?: string;
+}
+
+/**
+ * Individual radio item within a group
+ *
+ * @example
+ * ```tsx
+ * <Radio.Item label="Option A" value="a" />
+ * ```
+ *
+ * @example
+ * // Disabled item
+ * ```tsx
+ * <Radio.Item label="Unavailable" value="unavailable" disabled />
+ * ```
+ */
+/**
+ * Radio.Item component props.
+ *
+ * Parameterised by the radio value type `Value` (defaults to `string`). Pass a
+ * type argument — e.g. `<Radio.Item<number>>` — to type `value` to match the
+ * enclosing `Radio.Group`'s value type.
+ */
+export type RadioItemProps<Value = string> = {
+  /** Visual variant: "default" or "error" for validation failures */
+  variant?: RadioVariant;
+  /**
+   * Visual appearance of the radio item.
+   * - `"default"` — Standard inline radio item
+   * - `"card"` — Choice card with border, padding, and highlighted selection state
+   *
+   * When set on an individual item, overrides the group-level `appearance`.
+   * @default "default"
+   */
+  appearance?: DevilRadioAppearance;
+  /** Label content displayed next to radio (required). Accepts strings or React nodes for rich content. */
+  label: ReactNode;
+  /** Description text displayed below the label (only visible in card appearance) */
+  description?: ReactNode;
+  /** Value of the radio (required) */
+  value: Value;
+  /** Additional CSS classes for the label wrapper */
+  className?: string;
+  /** Whether the radio is disabled */
+  disabled?: boolean;
+};
+
+// Radio.Item for use within Radio.Group
+function _RadioItem<T = string>(
+  {
+    className,
+    disabled,
+    variant = "default",
+    appearance: appearanceProp,
+    label,
+    description,
+    value,
+  }: RadioItemProps<T>,
+  ref: ForwardedRef<HTMLButtonElement>,
+) {
+  const { controlPosition, appearance: groupAppearance } =
+    useContext(RadioGroupContext);
+  const appearance = appearanceProp ?? groupAppearance;
+  const isCard = appearance === "card";
+
+  // Fall back to an appearance-appropriate default when controlPosition is
+  // not provided: card defaults to "end" (radio on the right), default
+  // appearance defaults to "start" (radio on the left).
+  const effectiveControlPosition: RadioControlPosition =
+    controlPosition ?? (isCard ? "end" : "start");
+
+  if (isCard) {
+    const controlAtStart = effectiveControlPosition === "start";
+    return (
+      <label
+        data-devil-component="Radio"
+        data-devil-part="item-label"
+        className={cn(
+          "group relative m-0 flex items-start gap-3 rounded-lg border border-devil-hairline bg-devil-base p-3 transition-colors has-[[data-checked]]:border-devil-interact has-[[data-checked]]:bg-devil-tint",
+          controlAtStart && "flex-row-reverse",
+          variant === "error" &&
+            "border-devil-danger has-[[data-checked]]:border-devil-danger has-[[data-checked]]:bg-devil-base",
+          disabled
+            ? "cursor-not-allowed opacity-50"
+            : cn(
+                "cursor-pointer has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-50",
+                variant !== "error" &&
+                  "hover:not-has-[[data-disabled]]:bg-devil-tint",
+              ),
+          className,
+        )}
+      >
+        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <span className="text-base font-medium text-devil-default">
+            {label}
+          </span>
+          {description && (
+            <span className="text-sm text-devil-subtle">{description}</span>
+          )}
+        </div>
+        <BaseRadio.Root
+          ref={ref}
+          data-devil-component="Radio"
+          data-devil-part="item"
+          value={value}
+          disabled={disabled}
+          className={cn(
+            "relative mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-0 bg-devil-base ring-2 focus:ring-devil-focus focus:outline-none focus-visible:ring-2 focus-visible:ring-devil-brand",
+            variant === "error" ? "ring-devil-danger" : "ring-devil-line",
+            !disabled &&
+              variant !== "error" &&
+              "group-hover:ring-devil-hairline focus-visible:outline-offset-3",
+            !disabled &&
+              variant === "error" &&
+              "focus-visible:outline-offset-3",
+            "data-[checked]:bg-devil-contrast",
+          )}
+        >
+          <BaseRadio.Indicator
+            keepMounted
+            className="flex items-center justify-center"
+          >
+            <span className="h-2 w-2 rounded-full bg-devil-base" />
+          </BaseRadio.Indicator>
+        </BaseRadio.Root>
+      </label>
+    );
+  }
+
+  return (
+    <label
+      data-devil-component="Radio"
+      data-devil-part="item-label"
+      className={cn(
+        "group relative m-0 inline-flex items-start gap-2",
+        // "start" (default): radio before label
+        // "end": label before radio using flex-row-reverse
+        effectiveControlPosition === "end" && "flex-row-reverse justify-end",
+        disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
+        className,
+      )}
+    >
+      <BaseRadio.Root
+        ref={ref}
+        data-devil-component="Radio"
+        data-devil-part="item"
+        value={value}
+        disabled={disabled}
+        className={cn(
+          "relative mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-0 bg-devil-base ring after:absolute after:-inset-x-3 after:-inset-y-2 focus:outline-none",
+          variant === "error" ? "ring-devil-danger" : "ring-devil-line",
+          !disabled &&
+            variant !== "error" &&
+            "group-hover:ring-devil-hairline focus:ring-2 focus:ring-devil-focus focus-visible:ring-2 focus-visible:ring-devil-brand focus-visible:outline-offset-3",
+          !disabled &&
+            variant === "error" &&
+            "focus:ring-2 focus:ring-devil-focus focus-visible:ring-2 focus-visible:ring-devil-brand focus-visible:outline-offset-3",
+          "data-[checked]:bg-devil-contrast",
+        )}
+      >
+        <BaseRadio.Indicator
+          keepMounted
+          className="flex items-center justify-center"
+        >
+          <span className="h-2 w-2 rounded-full bg-devil-base" />
+        </BaseRadio.Indicator>
+      </BaseRadio.Root>
+      <span className="text-base text-devil-default">{label}</span>
+    </label>
+  );
+}
+
+// React's `forwardRef` erases generic type parameters, so we cast the result
+// back to a generic call signature. The cast is required to support React 18
+// consumers (where function components can't receive `ref` as a plain prop).
+const RadioItem = forwardRef(_RadioItem) as <T = string>(
+  props: RadioItemProps<T> & { ref?: ForwardedRef<HTMLButtonElement> },
+) => ReactElement;
+
+(RadioItem as unknown as { displayName: string }).displayName = "Radio.Item";
+
+// Radio.Legend — composable legend sub-component for Radio.Group
+function RadioLegend({ children, className }: RadioLegendProps) {
+  return (
+    <Fieldset.Legend
+      className={cn("text-base font-medium text-devil-default", className)}
+    >
+      {children}
+    </Fieldset.Legend>
+  );
+}
+
+RadioLegend.displayName = "Radio.Legend";
+
+// Radio.Group with built-in Fieldset and RadioGroup
+function RadioGroup<Value = string>({
+  legend,
+  children,
+  orientation = "vertical",
+  appearance = "default",
+  error,
+  description,
+  defaultValue,
+  value,
+  onValueChange,
+  disabled,
+  controlPosition,
+  name,
+  className,
+}: RadioGroupProps<Value>) {
+  return (
+    <RadioGroupContext.Provider value={{ controlPosition, appearance }}>
+      <BaseRadioGroup<Value>
+        defaultValue={defaultValue}
+        value={value}
+        onValueChange={(newValue, eventDetails) =>
+          onValueChange?.(newValue, eventDetails)
+        }
+        disabled={disabled}
+        name={name}
+      >
+        <Fieldset.Root
+          disabled={disabled}
+          className={cn("flex flex-col gap-4 p-0", className)}
+        >
+          {legend && (
+            <Fieldset.Legend className="text-base font-medium text-devil-default">
+              {legend}
+            </Fieldset.Legend>
+          )}
+          <div
+            className={cn(
+              orientation === "vertical"
+                ? cn("flex flex-col", appearance === "card" ? "gap-3" : "gap-2")
+                : appearance === "card"
+                  ? "grid grid-cols-2 gap-3"
+                  : "flex flex-row flex-wrap gap-2",
+            )}
+          >
+            {children}
+          </div>
+          {error && <p className="text-sm text-devil-danger">{error}</p>}
+          {description && (
+            <p className="text-sm text-devil-subtle">{description}</p>
+          )}
+        </Fieldset.Root>
+      </BaseRadioGroup>
+    </RadioGroupContext.Provider>
+  );
+}
+
+RadioGroup.displayName = "Radio.Group";
+
+// Export RadioGroup directly for external usage
+export { RadioGroup };
+
+/**
+ * Radio — radio button group for single-select choices.
+ *
+ * Compound component: `Radio.Group` (with built-in Fieldset), `Radio.Item`, and `Radio.Legend`.
+ * Built on `@base-ui/react/radio-group` + `@base-ui/react/radio`.
+ *
+ * @example
+ * ```tsx
+ * // Simple: legend as a string prop
+ * <Radio.Group legend="Notification preference" defaultValue="email">
+ *   <Radio.Item label="Email" value="email" />
+ *   <Radio.Item label="SMS" value="sms" />
+ *   <Radio.Item label="Push" value="push" />
+ * </Radio.Group>
+ *
+ * // Composable: Radio.Legend for full styling control (e.g. visually hidden)
+ * <Radio.Group defaultValue="email">
+ *   <Radio.Legend className="sr-only">Notification preference</Radio.Legend>
+ *   <Radio.Item label="Email" value="email" />
+ *   <Radio.Item label="SMS" value="sms" />
+ * </Radio.Group>
+ * ```
+ */
+export const Radio = Object.assign(RadioGroup, {
+  Item: RadioItem,
+  Group: RadioGroup,
+  Legend: RadioLegend,
+});

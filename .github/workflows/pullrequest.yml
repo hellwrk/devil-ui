@@ -1,0 +1,212 @@
+name: Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - "*.md"
+      - ".changeset/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: ./.github/actions/install-dependencies
+      - uses: ./.github/actions/vite-task-cache
+      - run: vp run build:devil
+      - uses: actions/upload-artifact@v4
+        with:
+          name: devil-dist
+          path: packages/devil-ui/dist
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: devil-ai
+          path: packages/devil-ui/ai
+          retention-days: 1
+
+  bundle-report:
+    needs: build
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: ./.github/actions/install-dependencies
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-dist
+          path: packages/devil-ui/dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-ai
+          path: packages/devil-ui/ai
+      - run: vp exec tsx ci/scripts/write-bundle-size-report.ts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-size-report
+          path: ci/reports
+          retention-days: 7
+
+  format:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: ./.github/actions/install-dependencies
+      - run: vp run format:check
+
+  lint:
+    needs: build
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: ./.github/actions/install-dependencies
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-dist
+          path: packages/devil-ui/dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-ai
+          path: packages/devil-ui/ai
+      - uses: ./.github/actions/vite-task-cache
+      # kumo-figma imports generated JSON data; type-aware lint needs it
+      - run: vp run gen:figma-data
+      - run: vp run --filter @hellwrk/devil-ui lint:oxlint
+      - run: vp lint packages/*/src
+
+  typecheck:
+    needs: build
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: ./.github/actions/install-dependencies
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-dist
+          path: packages/devil-ui/dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-ai
+          path: packages/devil-ui/ai
+      - run: vp run typecheck
+      - run: vp run ci:typecheck
+
+  test:
+    needs: build
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: ./.github/actions/install-dependencies
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-dist
+          path: packages/devil-ui/dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-ai
+          path: packages/devil-ui/ai
+      - run: vp run --filter @hellwrk/devil-ui test
+      - run: vp run test:ci
+
+  visual-contracts:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: ./.github/actions/install-dependencies
+        with:
+          filter: "@hellwrk/devil-ui"
+      - name: Install Chromium
+        working-directory: packages/devil-ui
+        run: vp exec playwright install --with-deps chromium
+      - name: Run visual contracts
+        run: vp run --filter @hellwrk/devil-ui test:visual-contracts
+      - name: Upload visual-contract artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-contract-artifacts
+          path: packages/devil-ui/.vitest-attachments/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  test-react-compatibility:
+    needs: build
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - react-version: "18.3.1"
+            types-react-version: "18.3.12"
+            types-react-dom-version: "18.3.1"
+          - react-version: "19.2.0"
+            types-react-version: "19.2.4"
+            types-react-dom-version: "19.2.3"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: ./.github/actions/install-dependencies
+      - name: Install React ${{ matrix.react-version }} test dependencies
+        env:
+          REACT_VERSION: ${{ matrix.react-version }}
+          TYPES_REACT_VERSION: ${{ matrix.types-react-version }}
+          TYPES_REACT_DOM_VERSION: ${{ matrix.types-react-dom-version }}
+        run: |
+          overrides="$(vp pm config get overrides --json)"
+          overrides="$(OVERRIDES="$overrides" node -e '
+            const overrides = JSON.parse(process.env.OVERRIDES ?? "{}");
+            Object.assign(overrides, {
+              react: process.env.REACT_VERSION,
+              "react-dom": process.env.REACT_VERSION,
+              "@types/react": process.env.TYPES_REACT_VERSION,
+              "@types/react-dom": process.env.TYPES_REACT_DOM_VERSION,
+            });
+            process.stdout.write(JSON.stringify(overrides));
+          ')"
+          vp pm config set --location=project --json overrides "$overrides"
+          vp install --no-frozen-lockfile --ignore-scripts --filter "@hellwrk/devil-ui..."
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-dist
+          path: packages/devil-ui/dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: devil-ai
+          path: packages/devil-ui/ai
+      - name: Verify React test versions
+        run: |
+          cd packages/devil-ui
+          node -e "if (require('react/package.json').version !== '${{ matrix.react-version }}') process.exit(1)"
+          node -e "if (require('react-dom/package.json').version !== '${{ matrix.react-version }}') process.exit(1)"
+      - run: vp run --filter @hellwrk/devil-ui typecheck
+      - run: vp run --filter @hellwrk/devil-ui test

@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LandingNav from "../components/landing/LandingNav.astro";
+import LandingHero from "../components/landing/LandingHero.astro";
+import LandingWhy from "../components/landing/LandingWhy.astro";
+import { LandingShowcase } from "../components/landing/LandingShowcase";
+import LandingCode from "../components/landing/LandingCode.astro";
+import LandingClosing from "../components/landing/LandingClosing.astro";
+---
+
+<BaseLayout
+  title="devil-ui"
+  description="devil-ui is a themeable, accessible React component library built on Base UI and Tailwind v4."
+>
+  <div class="isolate scroll-smooth bg-devil-canvas text-devil-default">
+    <LandingNav />
+    <main class="pt-14">
+      <LandingHero />
+      <div class="mx-auto max-w-6xl border-x border-devil-hairline">
+        <LandingWhy />
+        <LandingShowcase client:visible />
+        <LandingCode />
+        <LandingClosing />
+      </div>
+    </main>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .landing-reveal {
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* Hidden only after hydration arms the animation; SSR stays visible. */
+  .landing-reveal-arm {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .landing-reveal-arm.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .landing-reveal,
+    .landing-reveal-arm {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>

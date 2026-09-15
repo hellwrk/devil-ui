@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+}
+
+const { title, description, href } = Astro.props;
+---
+
+<div class="rounded-lg border border-devil-hairline bg-devil-elevated">
+  <div class="p-4">
+    <div class="text-devil-default">{title}</div>
+    <div class="mt-1 text-sm text-devil-subtle">{description}</div>
+
+    <div class="mt-4">
+      <a
+        href={href}
+        class="inline-flex items-center justify-center rounded-md border border-devil-hairline bg-devil-control px-3 py-1.5 text-sm font-medium text-devil-default transition-colors hover:bg-devil-recessed"
+      >
+        Learn more
+      </a>
+    </div>
+  </div>
+
+  <div class="border-devil-hairline border-t bg-devil-base p-2">
+    <slot />
+  </div>
+</div>

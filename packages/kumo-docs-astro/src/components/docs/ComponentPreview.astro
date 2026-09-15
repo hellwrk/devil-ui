@@ -1,0 +1,14 @@
+---
+// Container for component previews/demos
+const { class: className, ...rest } = Astro.props;
+---
+
+<div
+  class:list={[
+    "flex min-h-[120px] items-center justify-center rounded-t-lg border border-devil-hairline bg-devil-canvas p-6",
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</div>

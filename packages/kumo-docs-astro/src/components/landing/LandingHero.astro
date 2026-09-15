@@ -1,0 +1,70 @@
+---
+import { Badge, LinkButton } from "@hellwrk/devil-ui";
+import { Reveal } from "./Reveal";
+---
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap"
+/>
+
+<section id="top" class="relative overflow-hidden">
+  <!-- full-bleed infernal sky -->
+  <div aria-hidden="true" class="absolute inset-0">
+    <img
+      src="/hero/Infernal_sky_.jpeg"
+      alt=""
+      aria-hidden="true"
+      class="h-full w-full object-cover select-none"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/40"
+    >
+    </div>
+  </div>
+
+  <!-- fade into the page background at the bottom -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-devil-canvas"
+  >
+  </div>
+
+  <div
+    class="relative flex min-h-[100svh] flex-col items-center justify-center px-4 pt-28 pb-16 text-center md:px-6"
+  >
+    <Reveal client:visible>
+      <Badge
+        variant="outline"
+        className="border-white/40 bg-black/40 font-mono text-white uppercase tracking-widest backdrop-blur-sm"
+      >
+        Component library
+      </Badge>
+      <h1
+        aria-label="devil-ui"
+        class="mt-6 font-[Pirata_One] text-[clamp(4.5rem,16vw,12rem)] leading-[0.85] text-white select-none"
+      >
+        DEVIL-UI
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
+        Import what you need, own what you ship. Themeable, accessible
+        React components built on Base UI and Tailwind v4.
+      </p>
+      <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+        <LinkButton href="/installation" variant="primary" size="lg">
+          Get started
+        </LinkButton>
+        <LinkButton href="#showcase" variant="secondary" size="lg">
+          See components
+        </LinkButton>
+      </div>
+      <a
+        href="#why"
+        class="mt-14 inline-flex flex-col items-center gap-2 font-mono text-xs tracking-widest text-white/70 uppercase transition-colors hover:text-white"
+      >
+        scroll to explore
+        <span aria-hidden="true" class="animate-bounce text-base">↓</span>
+      </a>
+    </Reveal>
+  </div>
+</section>
