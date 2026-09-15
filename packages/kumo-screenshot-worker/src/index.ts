@@ -17,8 +17,7 @@ const HIDE_SIDEBAR_CSS = `
 // Allowed origins for CORS. Restricted to known Cloudflare hosts — the worker
 // is internal tooling and should never be called from arbitrary origins.
 const ALLOWED_ORIGINS = [
-  "https://kumo-ui.com",
-  "https://staging.kumo-ui.com",
+  "https://hellwrk.github.io",
   /^https:\/\/[a-z0-9-]+-devil-docs\.design-engineering\.workers\.dev$/,
   /^https:\/\/[a-z0-9-]+\.devil-docs\.pages\.dev$/,
 ];

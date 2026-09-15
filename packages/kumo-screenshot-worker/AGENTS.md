@@ -51,7 +51,7 @@ All requests require `X-API-Key: <API_KEY>` header.
 
 ```json
 {
-  "baseUrl": "https://kumo-ui.com",
+  "baseUrl": "https://hellwrk.github.io/devil-ui",
   "pages": [
     {
       "url": "/components/button",
@@ -72,7 +72,7 @@ When `captureSections: true`, the worker looks for elements with `data-vr-demo`,
 
 ## SECURITY NOTES
 
-- **URL validation**: all Browser Rendering targets must be `https://` and match the explicit Devil docs allowlist (`kumo-ui.com`, `staging.kumo-ui.com`, and Devil docs preview deployments). Do not replace this with a private-IP denylist; IP notation edge cases can bypass incomplete filters.
+- **URL validation**: all Browser Rendering targets must be `https://` and match the explicit Devil docs allowlist (`hellwrk.github.io`, and Devil docs preview deployments). Do not replace this with a private-IP denylist; IP notation edge cases can bypass incomplete filters.
 - **Selector injection prevention**: `sectionSelector` from the request is passed as a parameter to `page.evaluate()`, never interpolated into eval strings.
 - **CORS**: restricted to the same Devil docs allowlist used for navigation targets.
 

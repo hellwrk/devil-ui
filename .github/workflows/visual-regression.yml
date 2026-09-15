@@ -60,7 +60,7 @@ jobs:
           GITHUB_PR_NUMBER: ${{ inputs.pr_number }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PR_HEAD_SHA: ${{ inputs.head_sha }}
-          BEFORE_URL: "https://kumo-ui.com"
+          BEFORE_URL: "https://hellwrk.github.io/devil-ui"
           AFTER_URL: ${{ inputs.preview_url }}
           SCREENSHOT_API_KEY: ${{ secrets.SCREENSHOT_API_KEY }}
         run: vp exec tsx ci/visual-regression/run-visual-regression.ts

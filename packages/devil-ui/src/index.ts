@@ -25,7 +25,7 @@
  * **AI resources:** See `devil-ui/ai/component-registry.json` for full
  * component metadata including prop descriptions, variant values, and examples.
  *
- * @see {@link https://kumo-ui.com} — Documentation site
+ * @see {@link https://hellwrk.github.io/devil-ui} — Documentation site
  */
 
 // Components

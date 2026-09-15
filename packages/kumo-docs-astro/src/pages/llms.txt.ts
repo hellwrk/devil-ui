@@ -3,7 +3,7 @@ import componentRegistry from "@hellwrk/devil-ui/ai/component-registry.json";
 
 export const prerender = true;
 
-const SITE_URL = "https://kumo-ui.com";
+const SITE_URL = "https://hellwrk.github.io/devil-ui";
 
 const componentDocPages = import.meta.glob("./components/*.{astro,mdx}");
 const blockDocPages = import.meta.glob("./blocks/*.{astro,mdx}");
@@ -35,7 +35,7 @@ const chartTitleOverrides: Record<string, string> = {
 const chartDescriptions: Record<string, string> = {
   colors: "Chart color tokens and palette guidance.",
   custom: "Guidance for custom chart implementations.",
-  index: "Overview of Kumo charting patterns.",
+  index: "Overview of Devil charting patterns.",
   sankey: "Sankey chart usage and examples.",
   timeseries: "Timeseries chart usage and examples.",
 };
@@ -55,7 +55,7 @@ const coreDocs: LlmLink[] = [
   {
     title: "Installation",
     path: "/installation.md",
-    description: "Install Kumo and configure styles in an application.",
+    description: "Install Devil and configure styles in an application.",
   },
   {
     title: "Components vs Blocks",
@@ -67,7 +67,7 @@ const coreDocs: LlmLink[] = [
     title: "CLI",
     path: "/cli.md",
     description:
-      "Use the Kumo command-line tools for project setup and blocks.",
+      "Use the Devil command-line tools for project setup and blocks.",
   },
   {
     title: "Contributing",
@@ -77,7 +77,7 @@ const coreDocs: LlmLink[] = [
   {
     title: "Accessibility",
     path: "/accessibility.md",
-    description: "Accessibility guidance for building with Kumo components.",
+    description: "Accessibility guidance for building with Devil components.",
   },
   {
     title: "Colors",
@@ -102,7 +102,7 @@ const coreDocs: LlmLink[] = [
   {
     title: "Changelog",
     path: "/changelog.md",
-    description: "Release notes for Kumo.",
+    description: "Release notes for Devil.",
   },
 ];
 
@@ -236,11 +236,11 @@ function formatSection(title: string, links: LlmLink[]) {
 }
 
 const content = [
-  "# Kumo",
+  "# Devil",
   "",
   "> Cloudflare's React component library for building product interfaces.",
   "",
-  "This file is a curated index for LLMs. It links to markdown versions of Kumo docs pages instead of embedding the full documentation inline.",
+  "This file is a curated index for LLMs. It links to markdown versions of Devil docs pages instead of embedding the full documentation inline.",
   "",
   formatSection("Core Docs", coreDocs),
   "",

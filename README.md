@@ -89,7 +89,7 @@ pnpm --filter @hellwrk/devil-ui new-component
 
 ## Documentation
 
-- **Live Docs**: [kumo-ui.com](https://kumo-ui.com)
+- **Live Docs**: [hellwrk.github.io/devil-ui](https://hellwrk.github.io/devil-ui)
 - **AI/Agent Guide**: [AGENTS.md](./AGENTS.md)
 
 ## License

@@ -57,8 +57,8 @@ describe("markdown pages integration", () => {
     const content = readFileSync(llmsPath, "utf-8");
     expect(content).toContain("# Devil");
     expect(content).toContain("This file is a curated index for LLMs");
-    expect(content).toContain("https://kumo-ui.com/installation.md");
-    expect(content).toContain("https://kumo-ui.com/components/button.md");
-    expect(content).toContain("https://kumo-ui.com/blocks/resource-list.md");
+    expect(content).toContain("https://hellwrk.github.io/devil-ui/installation.md");
+    expect(content).toContain("https://hellwrk.github.io/devil-ui/components/button.md");
+    expect(content).toContain("https://hellwrk.github.io/devil-ui/blocks/resource-list.md");
   });
 });
