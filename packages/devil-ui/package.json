@@ -1,6 +1,6 @@
 {
   "name": "@hellwrk/devil-ui",
-  "version": "2.13.2",
+  "version": "2.13.3",
   "private": false,
   "description": "A themeable, accessible React component library built on Base UI and Tailwind v4",
   "keywords": [

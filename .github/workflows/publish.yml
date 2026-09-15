@@ -1,0 +1,60 @@
+name: Publish to npm
+
+# Manual release. Publishing from CI attaches an npm provenance attestation —
+# it links the tarball to this commit and workflow, which is what raises a
+# package's supply-chain score on services like Socket.
+#
+# Preferred setup: configure a Trusted Publisher under the package's settings
+# on npmjs.com (Settings -> Publishing access) pointing at this repo and
+# workflow. Then NPM_TOKEN is not needed at all and the OIDC token below
+# authenticates the publish.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: npm dist-tag (latest, next, beta)
+        required: false
+        default: latest
+
+permissions:
+  contents: read
+  # Required for the provenance attestation and for trusted publishing.
+  id-token: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish @hellwrk/devil-ui
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install Dependencies
+        uses: ./.github/actions/install-dependencies
+
+      - name: Setup Node for the registry
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Build
+        run: pnpm --filter @hellwrk/devil-ui build
+
+      - name: Publish
+        working-directory: packages/devil-ui
+        run: >-
+          npm publish
+          --access public
+          --ignore-scripts
+          --provenance
+          --tag "${{ inputs.tag || 'latest' }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

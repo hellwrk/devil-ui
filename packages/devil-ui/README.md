@@ -243,7 +243,7 @@ Terminal 1 (this directory):
 pnpm dev
 ```
 
-Terminal 2 (from workspace root or devil-docs):
+Terminal 2 (from the workspace root or the docs package):
 
 ```bash
 cd ../devil-ui-docs
