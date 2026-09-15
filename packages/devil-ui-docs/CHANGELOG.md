@@ -1,5 +1,25 @@
 # @cloudflare/kumo-docs-astro
 
+## 1.5.22
+
+### Patch Changes
+
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+- Updated dependencies [70dbd9a]
+  - @hellwrk/devil-ui@2.14.0
+
 ## 1.5.21
 
 ### Patch Changes

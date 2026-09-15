@@ -1,5 +1,27 @@
 # @cloudflare/kumo
 
+## 2.14.0
+
+### Minor Changes
+
+- 70dbd9a: Update the bundled Base UI dependency to version 1.8.0 and expose its Combobox item collection and functional Toast update APIs.
+- 70dbd9a: Add `ButtonGroup` component for joining a small set of tightly-coupled buttons into a single control — most commonly a split button (a primary action next to a dropdown trigger). Handles layout only: children keep their own variant, size, and shape while the group flattens inner corners and overlaps borders so the buttons share one seam. Renders `role="group"`. For grouping multiple independent buttons or inputs, use `Toolbar` instead.
+- 70dbd9a: Add sidebar open-change completion callbacks.
+- 70dbd9a: Add the TagInput component for creating and removing free-form values.
+- 70dbd9a: Add an optional `yAxisMinInterval` prop to `TimeseriesChart` for discrete data.
+- 70dbd9a: Add support for footer text below `TimeseriesChart` tooltip values.
+- 70dbd9a: Add a strict responsive LayerDialog component with automatic dismissal composition, alert-dialog semantics, mobile drawer behavior, and application-wide defaults for its built-in close and cancel copy through `DevilLocaleProvider`.
+- 70dbd9a: Add `GlobeMap`, an SVG orthographic globe with boundary-free hatched land, horizon-faded geographic markers, optional geographic guides, pointer and keyboard rotation, automatic rotation, Devil-themed tooltips, and no WebGL or ECharts requirement.
+
+### Patch Changes
+
+- 70dbd9a: Reset the native fieldset padding in radio and checkbox groups.
+- 70dbd9a: Switch checked track now uses the `devil-brand` semantic token instead of hardcoded blue, so it follows the theme (red in the default theme) and adapts to light/dark mode automatically.
+- 70dbd9a: Document app-root CSS isolation for reliable stacking of portaled components.
+- 70dbd9a: Update formatting for Vite+ 0.3.1.
+- 70dbd9a: Use the up/down double chevron in Combobox value and input triggers to match Select.
+- 70dbd9a: Add a visual regression contract for truncating text in default Tooltip triggers.
+
 ## 2.13.2
 
 ### Patch Changes
