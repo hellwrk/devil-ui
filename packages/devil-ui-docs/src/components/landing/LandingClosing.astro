@@ -1,147 +1,150 @@
 ---
 import { LinkButton } from "@hellwrk/devil-ui";
-import { Reveal } from "./Reveal";
 
 declare const __DEVIL_VERSION__: string;
 
 const devilVersion =
   typeof __DEVIL_VERSION__ !== "undefined" ? __DEVIL_VERSION__ : "dev";
 
-const heat = [
+const columns = [
   {
-    title: "One-line setup",
-    body: "Wrap your app, import styles, render. Sensible defaults everywhere; escape hatches where it counts.",
-    href: "/installation",
+    title: "Getting started",
+    links: [
+      { label: "Installation", href: "/installation" },
+      { label: "CLI", href: "/cli" },
+      { label: "Colors", href: "/colors" },
+      { label: "Components", href: "/components/button" },
+    ],
   },
   {
-    title: "CLI blocks",
-    body: "devil init, devil add PageHeader — production patterns installed into your repo, yours to keep.",
-    href: "/cli",
+    title: "Developers",
+    links: [
+      { label: "Registry", href: "/registry" },
+      { label: "Charts", href: "/charts" },
+      { label: "Blocks", href: "/cli" },
+      {
+        label: "GitHub",
+        href: "https://github.com/hellwrk/devil-ui",
+      },
+    ],
   },
   {
-    title: "AI-ready registry",
-    body: "Machine-readable props, variants and examples power the CLI, docs and your agents.",
-    href: "/registry",
-  },
-  {
-    title: "Charts & maps",
-    body: "Timeseries, Sankey, choropleth and globe maps with the same tokens as everything else.",
-    href: "/charts",
-  },
-  {
-    title: "Two themes, any mode",
-    body: "Default and FedRAMP themes over light/dark — swap with data attributes, zero refactors.",
-    href: "/colors",
-  },
-  {
-    title: "Docs that demo",
-    body: "Every reference page pairs live examples with props, styling contracts and install paths.",
-    href: "/components/button",
+    title: "Resources",
+    links: [
+      { label: "Docs", href: "/" },
+      { label: "Changelog", href: "/changelog" },
+      { label: "Sitemap", href: "/sitemap-index.xml" },
+    ],
   },
 ];
 ---
 
-<section id="heat" class="scroll-mt-20 border-b border-devil-hairline">
-  <div class="px-4 pt-16 pb-8 md:px-6 md:pt-24 md:pb-10">
-    <Reveal client:visible>
-      <h2 class="text-3xl font-semibold">What you get</h2>
-      <p class="mt-2 max-w-2xl text-sm text-devil-subtle">
-        The full toolkit behind these docs — ready for your app.
-      </p>
-    </Reveal>
-  </div>
-    <div class="grid grid-cols-1 gap-px bg-devil-hairline sm:grid-cols-2 lg:grid-cols-3">
-      {
-        heat.map((item) => (
-          <Reveal client:visible className="h-full">
-            <a
-              href={item.href}
-              class="group flex h-full flex-col gap-1.5 bg-devil-base px-5 py-4 hover:bg-devil-tint/30 md:px-6 md:py-5"
-            >
-              <h3 class="font-semibold">
-                {item.title}
-                <span
-                  aria-hidden="true"
-                  class="ml-1.5 inline-block transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </h3>
-              <p class="text-sm leading-relaxed text-devil-subtle">
-                {item.body}
-              </p>
-            </a>
-          </Reveal>
-        ))
-      }
-    </div>
-</section>
-
-<section class="border-b border-devil-hairline">
-  <div class="px-4 py-16 text-center md:px-6 md:py-24">
-    <Reveal client:visible>
-      <h2
-        class="mx-auto max-w-2xl text-3xl font-semibold text-balance md:text-4xl"
-      >
-        Enter Devil-UI, as it should be
+<section class="px-4 pb-16 md:px-6 md:pb-24">
+  <div
+    class="relative mx-auto max-w-6xl overflow-hidden rounded-2xl bg-devil-brand px-6 py-16 text-center md:py-20"
+  >
+    <div aria-hidden="true" class="closing-glow"></div>
+    <div class="relative">
+      <h2 class="text-3xl font-semibold text-devil-inverse md:text-4xl">
+        Build without boundaries
       </h2>
-      <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-devil-subtle">
+      <p
+        class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-devil-inverse/85"
+      >
         Free, open-source and typed end to end. Start with one component or
         adopt the whole system — it stays out of your way either way.
       </p>
-      <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
-        <LinkButton href="/installation" variant="primary">
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <LinkButton href="/installation" variant="secondary">
           Start building
         </LinkButton>
-        <LinkButton
+        <a
           href="https://github.com/hellwrk/devil-ui"
-          variant="secondary"
+          class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-devil-inverse hover:underline"
         >
           Star on GitHub
-        </LinkButton>
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
-    </Reveal>
+    </div>
   </div>
 </section>
 
-<footer>
-  <div
-    class="flex flex-col items-center justify-between gap-5 px-4 py-10 md:flex-row md:px-6"
-  >
-    <div class="flex items-center gap-2.5">
-      <img
-        src="/devil-ui-hd.png"
-        alt=""
-        aria-hidden="true"
-        class="h-5 w-5 rounded object-contain"
-      />
-      <span class="text-sm font-semibold">Devil-UI</span>
-      <span
-        class="rounded bg-devil-control px-1.5 py-0.5 font-mono text-xs text-devil-subtle"
-      >
-        v{devilVersion}
-      </span>
+<footer class="border-t border-devil-hairline">
+  <div class="mx-auto max-w-6xl px-4 py-14 md:px-6">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div>
+        <a href="#top" class="flex items-center gap-2.5" aria-label="Devil-UI home">
+          <img
+            src="/devil-ui-hd.png"
+            alt=""
+            aria-hidden="true"
+            class="h-6 w-6 rounded object-contain"
+          />
+          <span class="text-base font-semibold">Devil-UI</span>
+          <span
+            class="rounded bg-devil-control px-1.5 py-0.5 font-mono text-xs text-devil-subtle"
+          >
+            v{devilVersion}
+          </span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-devil-subtle">
+          A themeable, accessible React component library built on Base UI and
+          Tailwind v4.
+        </p>
+      </div>
+
+      {
+        columns.map((column) => (
+          <div>
+            <h3 class="text-sm font-semibold">{column.title}</h3>
+            <ul class="mt-3 flex flex-col gap-2">
+              {column.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-sm text-devil-subtle hover:text-devil-default"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </div>
-    <div class="flex items-center gap-6 text-sm text-devil-subtle">
-      <a href="/" class="hover:text-devil-default">Docs</a>
-      <a
-        href="/components/button"
-        class="hover:text-devil-default"
-      >
-        Components
-      </a>
-      <a href="/registry" class="hover:text-devil-default">
-        Registry
-      </a>
-      <a
-        href="https://github.com/hellwrk/devil-ui"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hover:text-devil-default"
-      >
-        GitHub
-      </a>
+
+    <div
+      class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-devil-hairline pt-8 text-sm text-devil-subtle md:flex-row"
+    >
+      <p>© 2026 Devil-UI — built with Astro</p>
+      <div class="flex items-center gap-6">
+        <a href="/changelog" class="hover:text-devil-default">Changelog</a>
+        <a href="/" class="hover:text-devil-default">Docs</a>
+        <a
+          href="https://github.com/hellwrk/devil-ui"
+          class="hover:text-devil-default"
+        >
+          GitHub
+        </a>
+      </div>
     </div>
-    <p class="font-mono text-xs text-devil-subtle">built with astro</p>
   </div>
 </footer>
+
+<style>
+  /* subtle brand halo behind the closing call to action */
+  .closing-glow {
+    position: absolute;
+    inset-inline: 0;
+    bottom: -40%;
+    height: 90%;
+    background: radial-gradient(
+      50% 60% at 50% 100%,
+      oklch(100% 0 0 / 0.28) 0%,
+      transparent 72%
+    );
+    filter: blur(10px);
+  }
+</style>

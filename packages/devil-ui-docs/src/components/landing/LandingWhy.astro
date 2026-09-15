@@ -1,52 +1,74 @@
 ---
-import { Reveal } from "./Reveal";
-
-const rows = [
-  {
-    n: "01",
-    title: "Accessible out of the box",
-    body: "Built on Base UI primitives with correct ARIA, focus management and keyboard navigation — plus dev-time warnings when a control lacks a name.",
-  },
-  {
-    n: "02",
-    title: "One theme, every mode",
-    body: "Semantic tokens adapt to light and dark automatically via light-dark(). No dark: variants, no hardcoded palette — switch themes with a data attribute.",
-  },
-  {
-    n: "03",
-    title: "Own your blocks",
-    body: "Components stay versioned in the package; patterns ship as CLI-installed blocks you copy and customize. Composition first, no black boxes.",
-  },
-  {
-    n: "04",
-    title: "Pay for what you import",
-    body: "Granular per-component entries, bundled dependencies and aggressive tree-shaking. Apps that skip a feature ship zero bytes for it.",
-  },
+const surfaces = [
+  { name: "bg-devil-canvas", cls: "bg-devil-canvas" },
+  { name: "bg-devil-elevated", cls: "bg-devil-elevated" },
+  { name: "bg-devil-base", cls: "bg-devil-base" },
+  { name: "bg-devil-recessed", cls: "bg-devil-recessed" },
+  { name: "bg-devil-tint", cls: "bg-devil-tint" },
+  { name: "bg-devil-brand", cls: "bg-devil-brand" },
 ];
 ---
 
-<section id="why" class="scroll-mt-20 border-b border-devil-hairline">
-  <div class="px-4 py-16 md:px-6 md:py-24">
-  <Reveal client:visible>
-    <h2 class="text-3xl font-semibold">Why Devil-UI?</h2>
-    <p class="mt-2 max-w-2xl text-sm text-devil-subtle">
-      A design system that stays out of your way until you need it.
-    </p>
-  </Reveal>
-  <div class="mt-8">
-    {
-      rows.map((row) => (
-        <Reveal client:visible>
-          <div class="grid gap-1.5 border-t border-devil-hairline px-5 py-4 last:border-b hover:bg-devil-tint/40 md:grid-cols-[64px_1fr_1.4fr] md:items-baseline md:gap-6 md:px-6">
-            <span class="font-mono text-sm text-devil-brand">{row.n}</span>
-            <h3 class="text-lg font-semibold">{row.title}</h3>
-            <p class="max-w-xl text-sm leading-relaxed text-devil-subtle">
-              {row.body}
-            </p>
-          </div>
-        </Reveal>
-      ))
-    }
-  </div>
+<section id="why" class="px-4 py-16 md:px-6 md:py-24">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <h2 class="text-3xl font-semibold md:text-4xl">Why choose Devil-UI?</h2>
+      <p
+        class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-devil-subtle"
+      >
+        Everything you need to build, theme and ship — without giving up
+        control of the code.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      <div
+        class="flex flex-col rounded-2xl bg-devil-elevated p-6 ring-1 ring-devil-hairline md:p-8"
+      >
+        <h3 class="text-xl font-semibold">Own the code you ship</h3>
+        <p class="mt-2 max-w-md text-base leading-relaxed text-devil-subtle">
+          Surfaces and states are named tokens, not one-off classes. Read them,
+          remap them, ship them — the whole system is yours to edit.
+        </p>
+
+        <div
+          class="mt-6 grid grid-cols-2 gap-2 rounded-xl bg-devil-base p-4 ring-1 ring-devil-hairline"
+        >
+          {
+            surfaces.map((surface) => (
+              <div class="flex items-center gap-3">
+                <span
+                  class={`size-4 shrink-0 rounded ring-1 ring-devil-line ${surface.cls}`}
+                />
+                <span
+                  class="truncate font-mono text-xs text-devil-subtle"
+                  title={surface.name}
+                >
+                  {surface.name}
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div
+        class="relative flex flex-col overflow-hidden rounded-2xl bg-devil-brand p-6 text-devil-inverse md:p-8"
+      >
+        <h3 class="text-xl font-semibold">Theme it once, everywhere</h3>
+        <p class="mt-2 max-w-md text-base leading-relaxed text-devil-inverse/85">
+          Light and dark, two shipped themes and your own overrides — all from
+          one set of semantic tokens. No refactors when the brand changes.
+        </p>
+
+        <a
+          href="/colors"
+          class="mt-auto inline-flex items-center gap-1.5 pt-8 text-sm font-medium text-devil-inverse hover:underline"
+        >
+          Explore the tokens
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>

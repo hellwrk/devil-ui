@@ -1,0 +1,124 @@
+---
+import { LinkButton } from "@hellwrk/devil-ui";
+import { CheckCircleIcon } from "@phosphor-icons/react";
+
+const plans = [
+  {
+    label: "Free",
+    price: "$0",
+    note: "forever",
+    body: "Every component, both themes and the full registry.",
+    features: [
+      "38 components, all export paths",
+      "Light/dark and FedRAMP themes",
+      "Typed props and JSON schemas",
+    ],
+    cta: { label: "Get started", href: "/installation", variant: "outline" },
+  },
+  {
+    label: "Blocks",
+    price: "Included",
+    note: "with the CLI",
+    body: "Production patterns installed straight into your repo.",
+    features: [
+      "devil add, then edit freely",
+      "Page headers, auth and empty states",
+      "No runtime coupling to the package",
+    ],
+    cta: { label: "Explore blocks", href: "/cli", variant: "primary" },
+  },
+  {
+    label: "Enterprise",
+    price: "Custom",
+    note: "talk to us",
+    body: "Dedicated support, custom theming and migration help.",
+    features: [
+      "Priority support channel",
+      "Custom theme and token audit",
+      "Adoption and migration guidance",
+    ],
+    cta: {
+      label: "Contact us",
+      href: "https://github.com/hellwrk/devil-ui",
+      variant: "outline",
+    },
+  },
+];
+---
+
+<section id="plans" class="px-4 py-16 md:px-6 md:py-24">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <h2 class="text-3xl font-semibold md:text-4xl">Adopt it your way</h2>
+      <p
+        class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-devil-subtle"
+      >
+        Start with one component or adopt the whole system. No runtime tax, no
+        lock-in.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-[1.1fr_1fr]">
+      <div
+        class="rounded-2xl bg-devil-elevated p-6 ring-1 ring-devil-hairline md:p-8"
+      >
+        <h3 class="text-xl font-semibold">Pay only for what you import</h3>
+        <p class="mt-2 max-w-lg text-base leading-relaxed text-devil-subtle">
+          Granular per-component entries, bundled dependencies and aggressive
+          tree-shaking. Apps that skip a feature ship zero bytes for it.
+        </p>
+      </div>
+
+      <div
+        class="flex flex-col justify-between rounded-2xl bg-devil-base p-6 ring-1 ring-devil-hairline md:p-8"
+      >
+        <p class="text-base leading-relaxed text-devil-subtle">
+          Every component stays a dependency you can delete — nothing reaches
+          for global state or a runtime you did not ask for.
+        </p>
+        <a
+          href="/components/button"
+          class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-devil-brand hover:underline"
+        >
+          See what a component ships
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="mt-6 grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-devil-hairline md:grid-cols-3"
+    >
+      {
+        plans.map((plan) => (
+          <div class="flex flex-col bg-devil-base p-6 md:p-8">
+            <p class="text-sm font-medium text-devil-subtle">{plan.label}</p>
+            <p class="mt-3 text-3xl font-semibold">{plan.price}</p>
+            <p class="mt-1 text-sm text-devil-subtle">{plan.note}</p>
+            <p class="mt-4 text-base leading-relaxed text-devil-subtle">
+              {plan.body}
+            </p>
+            <ul class="mt-6 flex flex-col gap-2.5">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-2 text-sm">
+                  <span class="h-lh flex items-center text-devil-brand">
+                    <CheckCircleIcon size={16} aria-hidden="true" />
+                  </span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <div class="mt-8 pt-2">
+              <LinkButton
+                href={plan.cta.href}
+                variant={plan.cta.variant as "outline" | "primary"}
+              >
+                {plan.cta.label}
+              </LinkButton>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

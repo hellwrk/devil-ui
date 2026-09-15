@@ -1,0 +1,33 @@
+---
+const stack = [
+  "React",
+  "TypeScript",
+  "Tailwind CSS",
+  "Base UI",
+  "Vite",
+  "Astro",
+];
+---
+
+<section class="px-4 py-16 md:px-6 md:py-20">
+  <div class="mx-auto max-w-6xl text-center">
+    <h2 class="text-3xl font-semibold md:text-4xl">
+      Trusted across the stack
+    </h2>
+    <p class="mx-auto mt-3 max-w-2xl text-base text-devil-subtle">
+      No black boxes — every peer dependency is one you already ship.
+    </p>
+
+    <ul
+      class="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-6"
+    >
+      {
+        stack.map((name) => (
+          <li class="text-lg font-semibold text-devil-subtle">{name}</li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-8 text-sm text-devil-subtle">And the rest of your stack.</p>
+  </div>
+</section>

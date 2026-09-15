@@ -1,0 +1,126 @@
+---
+import { Badge, Button, Input, Loader, Meter } from "@hellwrk/devil-ui";
+import {
+  PaletteIcon,
+  PuzzlePieceIcon,
+  ShieldCheckIcon,
+} from "@phosphor-icons/react";
+import CodeBlock from "../docs/CodeBlock.astro";
+
+const previewCode = `import { Button, Input, LayerCard } from "@hellwrk/devil-ui";
+import "devil-ui/styles";
+
+export function App() {
+  return (
+    <LayerCard className="px-5 py-4">
+      <Input label="Name" placeholder="Ada Lovelace" />
+      <Button variant="primary">Deploy</Button>
+    </LayerCard>
+  );
+}`;
+
+const columns = [
+  {
+    icon: ShieldCheckIcon,
+    title: "Accessible out of the box",
+    body: "Built on Base UI primitives with correct ARIA, focus management and keyboard navigation — plus dev-time warnings when a control lacks a name.",
+  },
+  {
+    icon: PaletteIcon,
+    title: "One theme, every mode",
+    body: "Semantic tokens adapt to light and dark automatically via light-dark(). No dark: variants, no hardcoded palette — switch themes with a data attribute.",
+  },
+  {
+    icon: PuzzlePieceIcon,
+    title: "Own your blocks",
+    body: "Components stay versioned in the package; patterns ship as CLI-installed blocks you copy and customize. Composition first, no black boxes.",
+  },
+];
+---
+
+<section id="features" class="px-4 py-16 md:px-6 md:py-24">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center">
+      <h2 class="text-3xl font-semibold md:text-4xl">
+        One system, every surface
+      </h2>
+      <p
+        class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-devil-subtle"
+      >
+        Themeable primitives and patterns that stay out of your way until you
+        need them — close to your data, close to your users.
+      </p>
+    </div>
+
+    <div class="relative mt-12">
+      <div
+        class="overflow-hidden rounded-2xl bg-devil-elevated ring-1 ring-devil-hairline"
+      >
+        <div class="grid gap-8 p-6 md:grid-cols-2 md:p-10">
+          <div class="min-w-0">
+            <p class="font-mono text-xs text-devil-subtle">app.tsx</p>
+            <div class="mt-3">
+              <CodeBlock code={previewCode} lang="tsx" />
+            </div>
+          </div>
+
+          <div
+            class="flex items-center justify-center rounded-xl bg-devil-base p-6 ring-1 ring-devil-hairline"
+          >
+            <div class="flex w-full max-w-xs flex-col gap-4">
+              <div class="flex flex-wrap gap-2">
+                <Badge variant="primary">Primary</Badge>
+                <Badge variant="success">Live</Badge>
+                <Badge variant="warning">Beta</Badge>
+              </div>
+              <Input label="Email" placeholder="you@example.com" />
+              <Meter label="Bandwidth used" value={65} />
+              <div class="flex items-center gap-2 text-sm text-devil-subtle">
+                <span class="h-lh flex items-center">
+                  <Loader size="sm" />
+                </span>
+                Deploying…
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="absolute -left-5 top-1/3 hidden w-56 rounded-xl bg-devil-base p-4 ring-1 ring-devil-line shadow-lg lg:block"
+      >
+        <p class="text-2xl font-semibold">38</p>
+        <p class="mt-1 text-sm text-devil-subtle">
+          components, every prop typed end to end.
+        </p>
+      </div>
+      <div
+        class="absolute -right-5 top-1/4 hidden w-56 rounded-xl bg-devil-base p-4 ring-1 ring-devil-line shadow-lg lg:block"
+      >
+        <p class="text-2xl font-semibold">2 themes</p>
+        <p class="mt-1 text-sm text-devil-subtle">
+          light and dark from the same tokens.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-16 grid gap-10 md:grid-cols-3">
+      {
+        columns.map((column) => {
+          const Icon = column.icon;
+          return (
+            <div>
+              <span class="flex size-9 items-center justify-center rounded-lg bg-devil-elevated text-devil-default ring-1 ring-devil-hairline">
+                <Icon size={20} aria-hidden="true" />
+              </span>
+              <h3 class="mt-4 text-lg font-semibold">{column.title}</h3>
+              <p class="mt-1.5 text-base leading-relaxed text-devil-subtle">
+                {column.body}
+              </p>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

@@ -1,6 +1,6 @@
 {
   "name": "@hellwrk/devil-ui",
-  "version": "2.13.3",
+  "version": "2.13.4",
   "private": false,
   "description": "A themeable, accessible React component library built on Base UI and Tailwind v4",
   "keywords": [
@@ -440,6 +440,9 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "scripts": {
     "prepublishOnly": "pnpm run build && pnpm run test:unit",

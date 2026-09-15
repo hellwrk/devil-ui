@@ -143,21 +143,22 @@ function InputCard() {
 
 export function LandingShowcase() {
   return (
-    <section id="showcase" className="scroll-mt-20 border-b border-devil-hairline">
-      <div className="px-4 pt-16 pb-8 md:px-6 md:pt-24 md:pb-10">
-        <Reveal>
-          <h2 className="text-3xl font-semibold">
-            Devil runs these docs
-          </h2>
-          <p className="mt-2 max-w-2xl text-sm text-devil-subtle">
-            Every specimen below is a live devil-ui component — not a mock.
-            Interact with them.
-          </p>
-        </Reveal>
-      </div>
+    <section id="showcase" className="scroll-mt-20 px-4 py-16 md:px-6 md:py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="text-center">
+          <Reveal>
+            <h2 className="text-3xl font-semibold md:text-4xl">
+              Every specimen is live
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-devil-subtle">
+              This page renders real Devil-UI components — not screenshots.
+              Interact with them.
+            </p>
+          </Reveal>
+        </div>
         <div
           className={cn(
-            "grid grid-cols-1 gap-px bg-devil-hairline",
+            "mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-devil-hairline",
             "sm:grid-cols-2 lg:grid-cols-3",
           )}
         >
@@ -192,6 +193,7 @@ export function LandingShowcase() {
             </Card>
           </Reveal>
         </div>
+      </div>
     </section>
   );
 }

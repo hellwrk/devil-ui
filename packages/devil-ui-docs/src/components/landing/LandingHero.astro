@@ -1,80 +1,73 @@
 ---
 import { Badge, LinkButton } from "@hellwrk/devil-ui";
-import { Reveal } from "./Reveal";
 ---
 
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap"
-/>
-
-<section id="top" class="relative overflow-hidden">
-  <!-- full-bleed infernal sky: three copies of the same plate drift in
-       opposite directions so the smoke churns around a steady glow -->
+<section id="top" class="px-4 pt-6 md:px-6 md:pt-8">
   <div
-    aria-hidden="true"
-    class="pointer-events-none absolute inset-0 overflow-hidden bg-devil-canvas"
+    class="relative mx-auto max-w-6xl overflow-hidden rounded-2xl bg-black ring-1 ring-devil-line"
   >
-    <img
-      src="/hero/Infernal_sky_.jpeg"
-      alt=""
-      aria-hidden="true"
-      class="hero-sky hero-sky-base h-full w-full object-cover select-none"
-    />
-    <img
-      src="/hero/Infernal_sky_.jpeg"
-      alt=""
-      aria-hidden="true"
-      class="hero-sky hero-sky-drift hero-sky-ring h-full w-full object-cover select-none"
-    />
-    <img
-      src="/hero/Infernal_sky_.jpeg"
-      alt=""
-      aria-hidden="true"
-      class="hero-sky hero-sky-drift hero-sky-low h-full w-full object-cover select-none"
-    />
+    <!-- full-bleed infernal sky: three copies of the same plate drift in
+         opposite directions so the smoke churns around a steady glow -->
     <div
-      class="absolute inset-0 bg-linear-to-b from-black/70 via-black/35 to-black/40"
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 overflow-hidden"
     >
+      <img
+        src="/hero/Infernal_sky_.jpeg"
+        alt=""
+        aria-hidden="true"
+        class="hero-sky hero-sky-base h-full w-full object-cover select-none"
+      />
+      <img
+        src="/hero/Infernal_sky_.jpeg"
+        alt=""
+        aria-hidden="true"
+        class="hero-sky hero-sky-drift hero-sky-ring h-full w-full object-cover select-none"
+      />
+      <img
+        src="/hero/Infernal_sky_.jpeg"
+        alt=""
+        aria-hidden="true"
+        class="hero-sky hero-sky-drift hero-sky-low h-full w-full object-cover select-none"
+      />
+      <div
+        class="absolute inset-0 bg-linear-to-b from-black/60 via-black/25 to-black/55"
+      >
+      </div>
+      <div class="hero-glow"></div>
     </div>
-  </div>
 
-  <!-- fade into the page background at the bottom -->
-  <div
-    aria-hidden="true"
-    class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-devil-canvas"
-  >
-  </div>
-
-  <div
-    class="relative flex min-h-[100svh] flex-col items-center justify-center px-4 pt-28 pb-16 text-center md:px-6"
-  >
-    <Reveal client:visible>
+    <div
+      class="relative flex flex-col items-center justify-center px-6 py-20 text-center md:py-28"
+    >
       <Badge
         variant="outline"
-        className="border-white/40 bg-black/40 font-mono text-white backdrop-blur-sm"
+        className="border-white/40 bg-black/30 font-mono text-white backdrop-blur-sm"
       >
         Component library
       </Badge>
       <h1
-        aria-label="Devil-UI"
-        class="mt-6 font-[Pirata_One] text-[clamp(4.5rem,16vw,12rem)] leading-[0.85] text-white select-none"
+        class="mt-6 max-w-3xl text-4xl font-semibold text-white md:text-5xl"
       >
-        Devil-UI
+        Everything you need to build the interface—yours to own
       </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/85">
-        Import what you need, own what you ship. Themeable, accessible
-        React components built on Base UI and Tailwind v4.
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
+        Themeable, accessible React components built on Base UI and Tailwind
+        v4. Import what you need, own what you ship.
       </p>
-      <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
-        <LinkButton href="/installation" variant="primary" size="lg">
-          Get started
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <LinkButton href="/installation" variant="primary">
+          Start building
         </LinkButton>
-        <LinkButton href="#showcase" variant="secondary" size="lg">
+        <a
+          href="#showcase"
+          class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white/85 hover:text-white"
+        >
           See components
-        </LinkButton>
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
-    </Reveal>
+    </div>
   </div>
 </section>
 
@@ -125,6 +118,20 @@ import { Reveal } from "./Reveal";
     );
     mask-image: linear-gradient(to top, #000 0%, #000 26%, transparent 60%);
     animation: hero-sky-c 44s ease-in-out infinite alternate;
+  }
+
+  /* brand halo rising from the bottom of the panel, like the reference */
+  .hero-glow {
+    position: absolute;
+    inset-inline: 0;
+    bottom: -30%;
+    height: 75%;
+    background: radial-gradient(
+      55% 65% at 50% 100%,
+      color-mix(in oklab, var(--color-devil-brand) 90%, transparent) 0%,
+      transparent 72%
+    );
+    filter: blur(8px);
   }
 
   @keyframes hero-sky-a {

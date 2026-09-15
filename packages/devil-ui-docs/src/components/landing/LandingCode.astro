@@ -15,33 +15,40 @@ export default function App() {
 }`;
 ---
 
-<section id="start" class="scroll-mt-20 border-b border-devil-hairline">
-  <div class="px-4 py-16 md:px-6 md:py-24">
-  <Reveal client:visible>
-    <h2 class="text-3xl font-semibold">
-      From zero to interface in minutes
-    </h2>
-    <p class="mt-2 max-w-2xl text-sm text-devil-subtle">
-      Install the package, import the styles, render components. Prefer
-      granular entries for smaller bundles — or scaffold full blocks with
-      the CLI when you want to own the code.
-    </p>
-  </Reveal>
-  <Reveal client:visible>
-    <div class="mt-8 max-w-3xl">
-      <CodeBlock code={usageCode} lang="tsx" />
-    </div>
-    <div class="mt-5 flex flex-wrap gap-4">
-      <a
-        href="/installation"
-        class="text-sm font-medium text-devil-brand hover:underline"
-      >
-        Read the installation guide →
-      </a>
-      <a href="/cli" class="text-sm font-medium text-devil-brand hover:underline">
-        Meet the CLI →
-      </a>
-    </div>
-  </Reveal>
+<section id="start" class="scroll-mt-20 px-4 py-16 md:px-6 md:py-24">
+  <div class="mx-auto flex max-w-6xl flex-col items-center">
+    <Reveal client:visible className="w-full">
+      <div class="text-center">
+        <h2 class="text-3xl font-semibold md:text-4xl">
+          From zero to interface in minutes
+        </h2>
+        <p
+          class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-devil-subtle"
+        >
+          Install the package, import the styles, render components. Prefer
+          granular entries for smaller bundles — or scaffold full blocks with
+          the CLI when you want to own the code.
+        </p>
+      </div>
+    </Reveal>
+    <Reveal client:visible className="w-full">
+      <div class="mx-auto mt-8 max-w-3xl">
+        <CodeBlock code={usageCode} lang="tsx" />
+      </div>
+      <div class="mt-5 flex flex-wrap justify-center gap-4">
+        <a
+          href="/installation"
+          class="text-sm font-medium text-devil-brand hover:underline"
+        >
+          Read the installation guide →
+        </a>
+        <a
+          href="/cli"
+          class="text-sm font-medium text-devil-brand hover:underline"
+        >
+          Meet the CLI →
+        </a>
+      </div>
+    </Reveal>
   </div>
 </section>

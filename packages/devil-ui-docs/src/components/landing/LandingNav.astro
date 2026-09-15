@@ -1,5 +1,6 @@
 ---
 import { LinkButton } from "@hellwrk/devil-ui";
+import { ThemeToggle } from "../ThemeToggle";
 
 declare const __DEVIL_VERSION__: string;
 
@@ -8,28 +9,28 @@ const devilVersion =
 
 const links = [
   { label: "Why", href: "#why" },
-  { label: "Showcase", href: "#showcase" },
-  { label: "Start", href: "#start" },
-  { label: "Capabilities", href: "#heat" },
+  { label: "Components", href: "#showcase" },
+  { label: "Install", href: "#start" },
+  { label: "Plans", href: "#plans" },
 ];
 ---
 
-<nav class="fixed inset-x-0 top-0 z-50">
-  <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-6">
-    <a href="#top" class="flex items-center gap-2.5" aria-label="devil-ui home">
+<header
+  class="sticky top-0 z-50 border-b border-devil-hairline bg-devil-canvas/85 backdrop-blur"
+>
+  <nav
+    class="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 md:px-6"
+  >
+    <a href="#top" class="flex items-center gap-2.5" aria-label="Devil-UI home">
       <img
         src="/devil-ui-hd.png"
         alt=""
         aria-hidden="true"
         class="h-6 w-6 rounded object-contain"
       />
+      <span class="text-base font-semibold">Devil-UI</span>
       <span
-        class="text-base font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"
-      >
-        Devil-UI
-      </span>
-      <span
-        class="hidden rounded bg-black/40 px-1.5 py-0.5 font-mono text-xs text-white/80 backdrop-blur-sm sm:inline"
+        class="hidden rounded bg-devil-control px-1.5 py-0.5 font-mono text-xs text-devil-subtle sm:inline"
       >
         v{devilVersion}
       </span>
@@ -40,7 +41,7 @@ const links = [
         links.map((link) => (
           <a
             href={link.href}
-            class="text-sm text-white/75 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] hover:text-white"
+            class="text-sm font-medium text-devil-subtle hover:text-devil-default"
           >
             {link.label}
           </a>
@@ -48,16 +49,17 @@ const links = [
       }
     </div>
 
-    <div class="flex items-center gap-2.5">
+    <div class="flex items-center gap-1.5">
       <a
         href="/"
-        class="hidden rounded-lg px-3 py-2 text-sm text-white/75 drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] hover:text-white sm:block"
+        class="hidden rounded-lg px-3 py-2 text-sm font-medium text-devil-subtle hover:text-devil-default sm:block"
       >
         Docs
       </a>
+      <ThemeToggle client:only="react" />
       <LinkButton href="/installation" variant="primary" size="sm">
         Get started
       </LinkButton>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>

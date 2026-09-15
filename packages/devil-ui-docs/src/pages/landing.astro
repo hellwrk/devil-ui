@@ -2,26 +2,30 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import LandingNav from "../components/landing/LandingNav.astro";
 import LandingHero from "../components/landing/LandingHero.astro";
+import LandingFeatures from "../components/landing/LandingFeatures.astro";
+import LandingProof from "../components/landing/LandingProof.astro";
 import LandingWhy from "../components/landing/LandingWhy.astro";
+import LandingPlans from "../components/landing/LandingPlans.astro";
 import { LandingShowcase } from "../components/landing/LandingShowcase";
 import LandingCode from "../components/landing/LandingCode.astro";
 import LandingClosing from "../components/landing/LandingClosing.astro";
 ---
 
 <BaseLayout
-  title="devil-ui"
-  description="devil-ui is a themeable, accessible React component library built on Base UI and Tailwind v4."
+  title="Devil-UI"
+  description="Devil-UI is a themeable, accessible React component library built on Base UI and Tailwind v4."
 >
   <div class="isolate scroll-smooth bg-devil-canvas text-devil-default">
     <LandingNav />
     <main>
       <LandingHero />
-      <div class="mx-auto max-w-6xl border-x border-devil-hairline">
-        <LandingWhy />
-        <LandingShowcase client:visible />
-        <LandingCode />
-        <LandingClosing />
-      </div>
+      <LandingFeatures />
+      <LandingProof />
+      <LandingWhy />
+      <LandingPlans />
+      <LandingShowcase client:visible />
+      <LandingCode />
+      <LandingClosing />
     </main>
   </div>
 </BaseLayout>
