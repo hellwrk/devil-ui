@@ -23,13 +23,13 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-full min-h-[200px] flex-col bg-devil-base p-5 transition-colors hover:bg-devil-tint/30 md:p-6">
+    <div className="flex h-full min-h-[200px] flex-col bg-devil-base px-5 py-4 hover:bg-devil-tint/30 md:px-6 md:py-5">
       <div className="flex min-h-0 w-full flex-1 items-center justify-center py-4">
         {children}
       </div>
       <a
         href={href}
-        className="mt-4 flex items-center justify-between border-t border-devil-hairline pt-4 text-sm font-medium transition-colors hover:text-devil-brand"
+        className="mt-4 flex items-center justify-between border-t border-devil-hairline pt-4 text-sm font-medium hover:text-devil-brand"
       >
         {title}
         <span aria-hidden="true">→</span>
@@ -93,7 +93,10 @@ function TabsCard() {
         onValueChange={setValue}
       />
       <p className="text-center text-sm text-devil-subtle">
-        Active: <span className="font-mono text-devil-default">{value}</span>
+        Active:{" "}
+        <span className="font-mono text-[0.9em] text-devil-default">
+          {value}
+        </span>
       </p>
     </div>
   );
@@ -129,7 +132,10 @@ function InputCard() {
     <div className="flex w-full flex-col gap-4">
       <Input label="Email" placeholder="you@example.com" />
       <div className="flex items-center gap-2 text-sm text-devil-subtle">
-        <Loader size="sm" /> Deploying…
+        <span className="h-lh flex items-center">
+          <Loader size="sm" />
+        </span>
+        Deploying…
       </div>
     </div>
   );
@@ -140,10 +146,10 @@ export function LandingShowcase() {
     <section id="showcase" className="scroll-mt-20 border-b border-devil-hairline">
       <div className="px-4 pt-16 pb-8 md:px-6 md:pt-24 md:pb-10">
         <Reveal>
-          <h2 className="text-3xl font-semibold tracking-tight">
+          <h2 className="text-3xl font-semibold">
             Devil runs these docs
           </h2>
-          <p className="mt-2 max-w-2xl text-devil-subtle">
+          <p className="mt-2 max-w-2xl text-sm text-devil-subtle">
             Every specimen below is a live devil-ui component — not a mock.
             Interact with them.
           </p>

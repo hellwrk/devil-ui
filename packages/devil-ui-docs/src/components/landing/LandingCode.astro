@@ -18,10 +18,10 @@ export default function App() {
 <section id="start" class="scroll-mt-20 border-b border-devil-hairline">
   <div class="px-4 py-16 md:px-6 md:py-24">
   <Reveal client:visible>
-    <h2 class="text-3xl font-semibold tracking-tight">
+    <h2 class="text-3xl font-semibold">
       From zero to interface in minutes
     </h2>
-    <p class="mt-2 max-w-2xl text-devil-subtle">
+    <p class="mt-2 max-w-2xl text-sm text-devil-subtle">
       Install the package, import the styles, render components. Prefer
       granular entries for smaller bundles — or scaffold full blocks with
       the CLI when you want to own the code.
@@ -31,7 +31,7 @@ export default function App() {
     <div class="mt-8 max-w-3xl">
       <CodeBlock code={usageCode} lang="tsx" />
     </div>
-    <div class="mt-5 flex flex-wrap gap-5">
+    <div class="mt-5 flex flex-wrap gap-4">
       <a
         href="/installation"
         class="text-sm font-medium text-devil-brand hover:underline"

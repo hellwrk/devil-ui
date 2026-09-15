@@ -44,8 +44,8 @@ const heat = [
 <section id="heat" class="scroll-mt-20 border-b border-devil-hairline">
   <div class="px-4 pt-16 pb-8 md:px-6 md:pt-24 md:pb-10">
     <Reveal client:visible>
-      <h2 class="text-3xl font-semibold tracking-tight">What you get</h2>
-      <p class="mt-2 max-w-2xl text-devil-subtle">
+      <h2 class="text-3xl font-semibold">What you get</h2>
+      <p class="mt-2 max-w-2xl text-sm text-devil-subtle">
         The full toolkit behind these docs — ready for your app.
       </p>
     </Reveal>
@@ -56,9 +56,9 @@ const heat = [
           <Reveal client:visible className="h-full">
             <a
               href={item.href}
-              class="group flex h-full flex-col gap-2 bg-devil-base p-5 transition-colors hover:bg-devil-tint/30 md:p-6"
+              class="group flex h-full flex-col gap-1.5 bg-devil-base px-5 py-4 hover:bg-devil-tint/30 md:px-6 md:py-5"
             >
-              <h3 class="font-semibold tracking-tight">
+              <h3 class="font-semibold">
                 {item.title}
                 <span
                   aria-hidden="true"
@@ -81,11 +81,11 @@ const heat = [
   <div class="px-4 py-16 text-center md:px-6 md:py-24">
     <Reveal client:visible>
       <h2
-        class="mx-auto max-w-2xl text-3xl font-semibold tracking-tight text-balance md:text-4xl"
+        class="mx-auto max-w-2xl text-3xl font-semibold text-balance md:text-4xl"
       >
-        Enter devil-ui, as it should be
+        Enter Devil-UI, as it should be
       </h2>
-      <p class="mx-auto mt-3 max-w-xl leading-relaxed text-devil-subtle">
+      <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-devil-subtle">
         Free, open-source and typed end to end. Start with one component or
         adopt the whole system — it stays out of your way either way.
       </p>
@@ -115,7 +115,7 @@ const heat = [
         aria-hidden="true"
         class="h-5 w-5 rounded object-contain"
       />
-      <span class="text-sm font-semibold tracking-tight">devil-ui</span>
+      <span class="text-sm font-semibold">Devil-UI</span>
       <span
         class="rounded bg-devil-control px-1.5 py-0.5 font-mono text-xs text-devil-subtle"
       >
@@ -123,21 +123,21 @@ const heat = [
       </span>
     </div>
     <div class="flex items-center gap-6 text-sm text-devil-subtle">
-      <a href="/" class="transition-colors hover:text-devil-default">Docs</a>
+      <a href="/" class="hover:text-devil-default">Docs</a>
       <a
         href="/components/button"
-        class="transition-colors hover:text-devil-default"
+        class="hover:text-devil-default"
       >
         Components
       </a>
-      <a href="/registry" class="transition-colors hover:text-devil-default">
+      <a href="/registry" class="hover:text-devil-default">
         Registry
       </a>
       <a
         href="https://github.com/hellwrk/devil-ui"
         target="_blank"
         rel="noopener noreferrer"
-        class="transition-colors hover:text-devil-default"
+        class="hover:text-devil-default"
       >
         GitHub
       </a>

@@ -34,7 +34,7 @@ import { Reveal } from "./Reveal";
       class="hero-sky hero-sky-drift hero-sky-low h-full w-full object-cover select-none"
     />
     <div
-      class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/40"
+      class="absolute inset-0 bg-linear-to-b from-black/70 via-black/35 to-black/40"
     >
     </div>
   </div>
@@ -42,7 +42,7 @@ import { Reveal } from "./Reveal";
   <!-- fade into the page background at the bottom -->
   <div
     aria-hidden="true"
-    class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-devil-canvas"
+    class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-devil-canvas"
   >
   </div>
 
@@ -52,17 +52,17 @@ import { Reveal } from "./Reveal";
     <Reveal client:visible>
       <Badge
         variant="outline"
-        className="border-white/40 bg-black/40 font-mono text-white uppercase tracking-widest backdrop-blur-sm"
+        className="border-white/40 bg-black/40 font-mono text-white backdrop-blur-sm"
       >
         Component library
       </Badge>
       <h1
-        aria-label="devil-ui"
+        aria-label="Devil-UI"
         class="mt-6 font-[Pirata_One] text-[clamp(4.5rem,16vw,12rem)] leading-[0.85] text-white select-none"
       >
-        DEVIL-UI
+        Devil-UI
       </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
+      <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/85">
         Import what you need, own what you ship. Themeable, accessible
         React components built on Base UI and Tailwind v4.
       </p>

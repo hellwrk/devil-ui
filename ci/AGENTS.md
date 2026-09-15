@@ -32,8 +32,6 @@ ci/
     ├── version-beta.sh        # changeset version + append -beta.<sha> via jq
     ├── publish-beta.sh        # Full pipeline: version → build → publish → verify (45s) → report
     ├── release-production.sh  # Branch → version → build → publish → verify (30s) → push → PR
-    ├── deploy-devil-docs-preview.sh   # Build → wrangler versions upload → preview URL → report
-    └── deploy-devil-docs-staging.sh   # Build → wrangler deploy --env staging
 ```
 
 ## WHERE TO LOOK
@@ -85,7 +83,6 @@ deploy-docs-preview.sh → write-devil-docs-report.ts → ci/reports/devil-docs-
 | `pullrequest.yml`             | pull_request, push:opencode/\*\* | Build, lint, typecheck, test                 |
 | `docs-pr.yml`                 | pull_request                     | Build and test docs; upload preview artifact |
 | `package-preview-pr.yml`      | pull_request, push:opencode/\*\* | Publish package preview with pkg-pr-new      |
-| `docs-preview-post-build.yml` | workflow_run, check_run          | Deploy fork docs; start visual regression    |
 | `visual-regression.yml`       | workflow_call                    | Verify preview and compare screenshots       |
 | `bonk.yml`                    | issue_comment, pr_review_comment | AI agent (`@ask-bonk`) via CF AI Gateway     |
 | `bonk-pr-review.yml`          | pull_request:opened              | Automatic Bonk review with a no-push token   |
@@ -106,5 +103,4 @@ deploy-docs-preview.sh → write-devil-docs-report.ts → ci/reports/devil-docs-
 - **Required secrets**: `NPM_TOKEN`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `GITHUB_TOKEN`
 - **Bonk authentication**: `github.token` for repository write-access checks; `CF_AI_GATEWAY_ACCOUNT_ID`, `CF_AI_GATEWAY_NAME`, and `CF_AI_GATEWAY_TOKEN` for AI Gateway
 - **Visual regression**: Creates ephemeral `vr-screenshots-{pr}-{runId}` branches for diff images
-- **Fork PR security**: `docs-preview-post-build.yml` handles fork PRs via `workflow_run` (no secrets in fork context)
 - **Composite action**: `.github/actions/install-dependencies/action.yml` installs pnpm 12.3.4, Node 24, with optional filter

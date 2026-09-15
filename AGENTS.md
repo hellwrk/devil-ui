@@ -153,7 +153,7 @@ The [global Vite+ CLI](https://viteplus.dev/) is optional but recommended for co
 
 - **NEVER commit** npm tokens or API keys
 - `.env` files are gitignored
-- `wrangler.jsonc` contains Cloudflare account IDs (not secret but don't expose)
+- `wrangler.jsonc` (screenshot Worker) contains Cloudflare account IDs (not secret but don't expose)
 
 ## NOTES
 

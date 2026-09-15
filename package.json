@@ -16,8 +16,6 @@
     "lockfile-check": "pnpm install --no-frozen-lockfile && git diff --exit-code pnpm-lock.yaml",
     "preview": "pnpm --filter @hellwrk/devil-ui-docs preview",
     "publish:beta": "bash ci/versioning/publish-beta.sh",
-    "deploy:devil-docs-preview": "bash ci/versioning/deploy-devil-docs-preview.sh",
-    "deploy:devil-docs-staging": "bash ci/versioning/deploy-devil-docs-staging.sh",
     "ci:post-pr-report": "tsx ci/scripts/post-pr-report.ts",
     "release": "pnpm build:all && changeset publish",
     "release:beta": "changeset publish --no-git-tag --tag beta",

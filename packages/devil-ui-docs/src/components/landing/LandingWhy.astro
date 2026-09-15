@@ -28,8 +28,8 @@ const rows = [
 <section id="why" class="scroll-mt-20 border-b border-devil-hairline">
   <div class="px-4 py-16 md:px-6 md:py-24">
   <Reveal client:visible>
-    <h2 class="text-3xl font-semibold tracking-tight">Why devil-ui?</h2>
-    <p class="mt-2 max-w-2xl text-devil-subtle">
+    <h2 class="text-3xl font-semibold">Why Devil-UI?</h2>
+    <p class="mt-2 max-w-2xl text-sm text-devil-subtle">
       A design system that stays out of your way until you need it.
     </p>
   </Reveal>
@@ -37,10 +37,10 @@ const rows = [
     {
       rows.map((row) => (
         <Reveal client:visible>
-          <div class="grid gap-1.5 border-t border-devil-hairline py-7 transition-colors last:border-b hover:bg-devil-tint/40 md:grid-cols-[64px_1fr_1.4fr] md:items-baseline md:gap-6 md:px-3">
+          <div class="grid gap-1.5 border-t border-devil-hairline px-5 py-4 last:border-b hover:bg-devil-tint/40 md:grid-cols-[64px_1fr_1.4fr] md:items-baseline md:gap-6 md:px-6">
             <span class="font-mono text-sm text-devil-brand">{row.n}</span>
-            <h3 class="text-lg font-semibold tracking-tight">{row.title}</h3>
-            <p class="max-w-xl text-sm leading-relaxed text-devil-subtle md:text-[15px]">
+            <h3 class="text-lg font-semibold">{row.title}</h3>
+            <p class="max-w-xl text-sm leading-relaxed text-devil-subtle">
               {row.body}
             </p>
           </div>

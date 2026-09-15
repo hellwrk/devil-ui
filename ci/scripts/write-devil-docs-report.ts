@@ -4,7 +4,7 @@
  * Write Devil Docs Preview Report Artifact
  *
  * Outputs a report artifact for the devil-docs preview deployment.
- * Called by deploy-devil-docs-preview.sh after successful deployment.
+ * Called after a successful docs deployment.
  *
  * Required environment variables:
  * - DEVIL_DOCS_PREVIEW_URL: Deployed preview URL
