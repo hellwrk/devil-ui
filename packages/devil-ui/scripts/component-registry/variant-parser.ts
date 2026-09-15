@@ -104,7 +104,7 @@ export function parseVariantsObject(
       const descMatch = variantBlock.match(
         /description\s*:\s*["']([^"']*)["']/,
       );
-      // Extract classes if present (for Figma plugin consumption)
+      // Extract classes if present (for registry consumers)
       const classesMatch = variantBlock.match(/classes\s*:\s*["']([^"']*)["']/);
 
       // Extract state classes from the classes string
@@ -228,7 +228,7 @@ function parseStylingObject(objStr: string): ComponentStyling | null {
  * Extract DEVIL_*_STYLING from a component file.
  * Returns the styling object or null if not found.
  *
- * This allows components to define Figma-specific styling metadata
+ * This allows components to define component-specific styling metadata
  * that gets automatically picked up by the registry generator.
  */
 export function extractStylingFromFile(

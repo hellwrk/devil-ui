@@ -43,7 +43,7 @@ export const DEVIL_BUTTON_DEFAULT_VARIANTS = {
   shape: "base"
 } as const;
 
-// 3. Optional: Figma plugin metadata
+// 3. Optional: component styling metadata
 export const DEVIL_BUTTON_STYLING = {
   baseClasses: "inline-flex items-center ...",
   iconPosition: "left"
@@ -149,7 +149,7 @@ className={cn("base-classes", conditional && "extra", className)}
 className="base-classes"
 ```
 
-### State Classes (for Figma extraction)
+### State Classes (for registry extraction)
 
 Tailwind state prefixes are extractable:
 

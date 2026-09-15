@@ -23,7 +23,7 @@ export const DEVIL_SELECT_DEFAULT_VARIANTS = {
 } as const;
 
 /**
- * Select component styling metadata for Figma plugin code generation
+ * Select component styling metadata for registry code generation
  * Extracted from select.tsx implementation (source of truth)
  */
 export const DEVIL_SELECT_STYLING = {

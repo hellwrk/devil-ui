@@ -3,7 +3,7 @@ import { describe, it, expect } from "vite-plus/test";
 // Test the detection logic directly by importing and testing the pattern matching
 // Note: We can't easily test oxlint rules in isolation, so we test the core logic
 
-const PACKAGE_DIRS = new Set(["devil-ui", "kumo-docs-astro", "kumo-figma"]);
+const PACKAGE_DIRS = new Set(["devil-ui", "devil-ui-docs", "devil-ui-screenshot-worker"]);
 const CROSS_PACKAGE_PATTERN = /^((?:\.\.\/)+)([a-z0-9-]+)\//;
 
 function getCrossPackageImport(importPath: string): string | null {
@@ -42,16 +42,16 @@ describe("no-cross-package-imports", () => {
       expect(getCrossPackageImport("../../../devil-ui/src/button")).toBe("devil-ui");
     });
 
-    it("detects ../../kumo-docs-astro/path", () => {
-      expect(getCrossPackageImport("../../kumo-docs-astro/src/foo")).toBe(
-        "kumo-docs-astro",
+    it("detects ../../devil-ui-docs/path", () => {
+      expect(getCrossPackageImport("../../devil-ui-docs/src/foo")).toBe(
+        "devil-ui-docs",
       );
     });
 
-    it("detects ../../kumo-figma/path", () => {
-      expect(getCrossPackageImport("../../kumo-figma/src/bar")).toBe(
-        "kumo-figma",
-      );
+    it("detects ../../devil-ui-screenshot-worker/path", () => {
+      expect(
+        getCrossPackageImport("../../devil-ui-screenshot-worker/src/bar"),
+      ).toBe("devil-ui-screenshot-worker");
     });
   });
 

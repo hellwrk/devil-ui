@@ -21,10 +21,10 @@ echo "🔨 Building devil-ui library..."
 pnpm --filter @hellwrk/devil-ui build
 
 echo "🔨 Building devil-docs..."
-pnpm --filter @cloudflare/kumo-docs-astro build
+pnpm --filter @hellwrk/devil-ui-docs build
 
 echo "🚀 Uploading version to devil-docs worker..."
-cd packages/kumo-docs-astro
+cd packages/devil-ui-docs
 echo "  Using wrangler version: $(npx wrangler --version)"
 
 # Upload version - capture output regardless of exit code

@@ -19,7 +19,7 @@ import { getPullRequestFiles } from "./pull-request-files";
 // as a secret in CI provides false security and creates a foot-gun where the
 // env override can be hijacked. The real protection is SCREENSHOT_API_KEY.
 const WORKER_URL =
-  "https://kumo-screenshot-worker.design-engineering.workers.dev";
+  "https://devil-ui-screenshot-worker.design-engineering.workers.dev";
 const SCREENSHOTS_DIR = "ci/visual-regression/screenshots";
 const API_KEY = process.env.SCREENSHOT_API_KEY ?? "";
 

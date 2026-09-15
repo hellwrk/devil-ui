@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/hellwrk/devil-ui/main/packages/kumo-docs-astro/public/devil-ui-hd.png" alt="devil-ui" width="140" />
+  <img src="https://raw.githubusercontent.com/hellwrk/devil-ui/main/packages/devil-ui-docs/public/devil-ui-hd.png" alt="devil-ui" width="140" />
 </p>
 
 <h1 align="center">devil-ui</h1>
@@ -239,7 +239,7 @@ pnpm dev
 Terminal 2 (from workspace root or devil-docs):
 
 ```bash
-cd ../kumo-docs-astro
+cd ../devil-ui-docs
 pnpm dev
 ```
 

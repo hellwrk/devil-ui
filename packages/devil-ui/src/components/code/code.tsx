@@ -33,7 +33,7 @@ export const DEVIL_CODE_DEFAULT_VARIANTS = {
 } as const;
 
 /**
- * Styling metadata for Code component (for AI/Figma plugin consumption)
+ * Styling metadata for Code component (for AI/registry consumption)
  */
 export const DEVIL_CODE_STYLING = {
   /** Base semantic tokens used */
@@ -59,7 +59,7 @@ export const DEVIL_CODE_STYLING = {
 } as const;
 
 /**
- * Styling metadata for CodeBlock component (for AI/Figma plugin consumption)
+ * Styling metadata for CodeBlock component (for AI/registry consumption)
  */
 export const DEVIL_CODEBLOCK_STYLING = {
   /** Base semantic tokens used */

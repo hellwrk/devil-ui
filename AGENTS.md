@@ -4,7 +4,7 @@
 
 ## OVERVIEW
 
-Cloudflare's React component library (`devil-ui`). pnpm monorepo: component library (Base UI + Tailwind v4), Astro docs site, Figma plugin, screenshot worker. ESM-only, Node 24+.
+Cloudflare's React component library (`devil-ui`). pnpm monorepo: component library (Base UI + Tailwind v4), Astro docs site, screenshot worker. ESM-only, Node 24+.
 
 ## STRUCTURE
 
@@ -12,9 +12,8 @@ Cloudflare's React component library (`devil-ui`). pnpm monorepo: component libr
 devil/
 ├── packages/
 │   ├── devil/                     # Component library → see packages/devil-ui/AGENTS.md
-│   ├── kumo-docs-astro/          # Astro docs site → see packages/kumo-docs-astro/AGENTS.md
-│   ├── kumo-figma/               # Figma plugin → see packages/kumo-figma/AGENTS.md
-│   └── kumo-screenshot-worker/   # Visual regression Worker → see packages/kumo-screenshot-worker/AGENTS.md
+│   ├── devil-ui-docs/          # Astro docs site → see packages/devil-ui-docs/AGENTS.md
+│   └── devil-ui-screenshot-worker/   # Visual regression Worker → see packages/devil-ui-screenshot-worker/AGENTS.md
 ├── ci/                           # CI/CD scripts → see ci/AGENTS.md
 ├── lint/                         # Custom oxlint rules (5 rules in package, 4 at root)
 ├── .changeset/                   # Changeset files
@@ -31,9 +30,8 @@ devil/
 | Blocks (installable) | `packages/devil-ui/src/blocks/`                      | NOT library exports; installed via CLI                   |
 | Semantic tokens      | `packages/devil-ui/src/styles/theme-devil.css`        | AUTO-GENERATED; edit `scripts/theme-generator/config.ts` |
 | Custom lint rules    | `lint/` (4 rules) + `packages/devil-ui/lint/` (+1)   | Package copy adds `no-deprecated-props`                  |
-| Demo examples        | `packages/kumo-docs-astro/src/components/demos/` | Feed into registry codegen                               |
+| Demo examples        | `packages/devil-ui-docs/src/components/demos/` | Feed into registry codegen                               |
 | CI scripts           | `ci/`                                            | Reporter system, versioning, deployment                  |
-| Figma generators     | `packages/kumo-figma/src/generators/`            | 37 component generators                                  |
 
 ## CONVENTIONS
 
@@ -70,8 +68,7 @@ devil/
 ### Changesets
 
 - **Enforced for `packages/devil-ui/`**: Pre-push hook requires changeset for npm-published library
-- **Optional for `kumo-docs-astro`**: Version appears in `/api/version` endpoint (debugging) but nothing depends on it
-- **Not needed for `kumo-figma`**: Figma plugin, not published to npm
+- **Optional for `devil-ui-docs`**: Version appears in `/api/version` endpoint (debugging) but nothing depends on it
 - **Pre-push hook**: `.vite-hooks/pre-push` validates before push. Bypass: `git push --no-verify` (or `VITE_GIT_HOOKS=0`)
 - **AI agents NEVER**: `pnpm version`, `pnpm release`, `pnpm publish:beta`, `pnpm release:production`
 
@@ -119,17 +116,15 @@ pnpm changeset                                    # Create changeset (required f
 pnpm --filter @hellwrk/devil-ui build              # Build library
 pnpm --filter @hellwrk/devil-ui test               # Vitest
 pnpm --filter @hellwrk/devil-ui codegen:registry   # Regenerate component-registry
-pnpm --filter @cloudflare/kumo-figma build        # Build Figma plugin
 ```
 
 ## BUILD PIPELINE
 
 ```
-kumo-docs-astro demos → dist/demo-metadata.json
+devil-ui-docs demos → dist/demo-metadata.json
                               ↓
 devil codegen:registry → ai/component-registry.{json,md} + ai/schemas.ts
                               ↓
-kumo-figma build:data → generated/*.json → vp pack (tsdown) → code.js (IIFE, ES2017)
 ```
 
 Cross-package dependency: registry codegen requires docs demo metadata. Run `codegen:demos` in docs before `codegen:registry` in devil.
@@ -156,7 +151,7 @@ The [global Vite+ CLI](https://viteplus.dev/) is optional but recommended for co
 
 ## SECURITY
 
-- **NEVER commit** Figma tokens, npm tokens, or API keys
+- **NEVER commit** npm tokens or API keys
 - `.env` files are gitignored
 - `wrangler.jsonc` contains Cloudflare account IDs (not secret but don't expose)
 

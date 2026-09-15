@@ -93,9 +93,9 @@ const FULL_REGRESSION_PATTERNS: RegExp[] = [
   /tailwind\.config/,
 
   // Docs site infrastructure that wraps all component demos
-  /packages\/kumo-docs-astro\/src\/components\/docs\//,
-  /packages\/kumo-docs-astro\/src\/layouts\//,
-  /packages\/kumo-docs-astro\/src\/styles\//,
+  /packages\/devil-ui-docs\/src\/components\/docs\//,
+  /packages\/devil-ui-docs\/src\/layouts\//,
+  /packages\/devil-ui-docs\/src\/styles\//,
 ];
 
 /**
@@ -111,7 +111,6 @@ const SKIP_PATTERNS: RegExp[] = [
   /\.spec\.(ts|tsx)$/,
   /packages\/devil\/ai\//,
   /packages\/devil\/scripts\//,
-  /packages\/kumo-figma\//,
   /packages\/devil\/src\/command-line\//,
   /packages\/devil\/src\/catalog\//,
   /packages\/devil\/src\/blocks\//,
@@ -137,7 +136,7 @@ export interface ChangeClassification {
  *   packages/devil-ui/src/components/button/button.tsx -> "button"
  *   packages/devil-ui/src/components/button/use-button.ts -> "button"
  *   packages/devil-ui/src/components/button/index.ts -> "button"
- *   packages/kumo-docs-astro/.../ButtonDemo.tsx -> "button"
+ *   packages/devil-ui-docs/.../ButtonDemo.tsx -> "button"
  */
 export function getComponentFromFile(filePath: string): string | null {
   // Match any file under a component directory: packages/devil-ui/src/components/{name}/

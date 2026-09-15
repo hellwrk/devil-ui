@@ -7,8 +7,7 @@ This repo uses [Changesets](https://github.com/changesets/changesets) to manage 
 | Package                     | Changeset Required?                        | Why                                                   |
 | --------------------------- | ------------------------------------------ | ----------------------------------------------------- |
 | `packages/devil-ui/`            | **Yes** (enforced by pre-push)             | Published to npm as `devil-ui`                |
-| `packages/kumo-docs-astro/` | Optional (version used for `/api/version`) | Not published, but version exposed in docs site build |
-| `packages/kumo-figma/`      | No                                         | Figma plugin, not published to npm                    |
+| `packages/devil-ui-docs/` | Optional (version used for `/api/version`) | Not published, but version exposed in docs site build |
 
 The pre-push hook (`lefthook.yml`) **only enforces** changesets for `packages/devil-ui/` changes.
 
@@ -16,7 +15,7 @@ The pre-push hook (`lefthook.yml`) **only enforces** changesets for `packages/de
 
 When you run `pnpm changeset version`, it processes **all packages** in the monorepo (not just devil), so:
 
-- It will bump `kumo-docs-astro` version if included in a changeset
+- It will bump `devil-ui-docs` version if included in a changeset
 - The docs version appears at `/api/version` as `docsVersion` (for debugging deployed builds)
 - No automated tooling depends on the docs version number being "correct"
 

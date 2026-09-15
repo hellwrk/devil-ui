@@ -17,7 +17,7 @@ import type {
 // =============================================================================
 // Cache version - INCREMENT THIS when you change:
 // - ADDITIONAL_COMPONENT_PROPS (manual prop overrides)
-// - COMPONENT_STYLING_METADATA (Figma styling data)
+// - COMPONENT_STYLING_METADATA (component styling data)
 // - Parser logic, filtering rules, or output format
 //
 // The cache only hashes individual component files (button.tsx, button.stories.tsx).

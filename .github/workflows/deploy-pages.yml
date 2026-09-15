@@ -46,11 +46,11 @@ jobs:
         run: pnpm --filter @hellwrk/devil-ui build
 
       - name: Build docs
-        run: pnpm --filter @cloudflare/kumo-docs-astro build
+        run: pnpm --filter @hellwrk/devil-ui-docs build
 
       - name: Verify base path was applied
         run: |
-          if ! grep -q "/devil-ui/_astro/" packages/kumo-docs-astro/dist/index.html; then
+          if ! grep -q "/devil-ui/_astro/" packages/devil-ui-docs/dist/index.html; then
             echo "::error::Built HTML is missing the /devil-ui base path"
             exit 1
           fi
@@ -58,7 +58,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/kumo-docs-astro/dist
+          path: packages/devil-ui-docs/dist
 
   deploy:
     name: Deploy

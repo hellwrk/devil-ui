@@ -451,7 +451,7 @@
     "codegen:themes": "tsx scripts/theme-generator/index.ts",
     "migrate:tokens": "tsx scripts/theme-generator/migrate.ts",
     "codegen:primitives": "tsx scripts/generate-primitives.ts",
-    "codegen:registry": "pnpm --filter @cloudflare/kumo-docs-astro codegen:demos && tsx scripts/component-registry/index.ts",
+    "codegen:registry": "pnpm --filter @hellwrk/devil-ui-docs codegen:demos && tsx scripts/component-registry/index.ts",
     "lint": "pnpm run lint:oxlint",
     "lint:oxlint": "vp lint src/",
     "test": "CI=true vp test run --project=unit",

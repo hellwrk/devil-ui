@@ -151,7 +151,7 @@ export function badgeVariants({
     DEVIL_BADGE_DEFAULT_VARIANTS.appearance,
   ).classes;
   return cn(
-    // Base styles (exported as DEVIL_BADGE_BASE_STYLES for Figma plugin)
+    // Base styles (exported as DEVIL_BADGE_BASE_STYLES for registry consumers)
     DEVIL_BADGE_BASE_STYLES,
     // The dot appearance overrides background/text colors from the variant,
     // so only apply variant classes when we're not in dot mode.

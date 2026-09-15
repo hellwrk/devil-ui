@@ -21,7 +21,7 @@ export interface PropSchema {
   description?: string;
   values?: readonly string[];
   descriptions?: Record<string, string>;
-  /** Tailwind classes for each variant value (for Figma plugin) */
+  /** Tailwind classes for each variant value (for registry consumers) */
   classes?: Record<string, string>;
   /** State-specific classes extracted from variant classes */
   stateClasses?: Record<string, Record<string, string>>;
@@ -59,7 +59,7 @@ export interface ComponentSchema {
   colors: string[];
   /**
    * Base Tailwind classes applied to all variants.
-   * Useful for Figma plugin to parse layout, spacing, typography.
+   * Useful for registry consumers to parse layout, spacing, typography.
    */
   baseStyles?: string;
   /** Sub-components for compound component patterns */

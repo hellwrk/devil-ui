@@ -21,7 +21,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 
 /**
- * Toast styling configuration for Figma plugin consumption.
+ * Toast styling configuration for registry consumers.
  * Toast has no user-facing variants but documents the styling structure.
  */
 export const DEVIL_TOAST_VARIANTS = {
@@ -80,8 +80,8 @@ export const DEVIL_TOAST_DEFAULT_VARIANTS = {
 } as const;
 
 /**
- * Toast styling configuration for Figma plugin consumption.
- * Provides structured metadata for generating Toast components in Figma.
+ * Toast styling configuration for registry consumers.
+ * Provides structured metadata for generating Toast components from metadata.
  */
 export const DEVIL_TOAST_STYLING = {
   container: {

@@ -274,7 +274,7 @@ async function resolveForkPreview(): Promise<void> {
 function readArtifactCommit(): void {
   const versionPath =
     process.env.DOCS_VERSION_PATH ??
-    "packages/kumo-docs-astro/dist/api/version";
+    "packages/devil-ui-docs/dist/api/version";
   writeOutputs({
     preview_commit: parsePreviewCommit(readFileSync(versionPath, "utf8")),
   });
@@ -300,7 +300,7 @@ function deployDocsPreview(): void {
       `PR #${prNumber} (${headSha.substring(0, 7)})`,
     ],
     {
-      cwd: process.env.DOCS_PROJECT_PATH ?? "packages/kumo-docs-astro",
+      cwd: process.env.DOCS_PROJECT_PATH ?? "packages/devil-ui-docs",
       encoding: "utf8",
       env: process.env,
     },

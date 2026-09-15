@@ -85,14 +85,14 @@ export const DEVIL_TEXT_DEFAULT_VARIANTS = {
 } as const;
 
 /**
- * DEVIL_TEXT_STYLING - Typography metadata for Figma generator
+ * DEVIL_TEXT_STYLING - Typography metadata for registry consumers
  *
  * This export provides structured styling information extracted from text.tsx
- * for use by the Figma plugin generator. It documents font sizes, weights,
+ * for use by registry consumers. It documents font sizes, weights,
  * colors, and font families used across all Text variants.
  *
  * Source of truth chain:
- * text.tsx (this file) → component-registry.json → text.ts (Figma generator)
+ * text.tsx (this file) → component-registry.json → text.ts (registry consumer)
  */
 export const DEVIL_TEXT_STYLING = {
   fontSizes: {

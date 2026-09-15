@@ -64,7 +64,7 @@ See `src/components/AGENTS.md` for detailed component conventions.
 ### Registry Codegen Pipeline
 
 ```
-kumo-docs-astro demos → dist/demo-metadata.json  (cross-package dependency!)
+devil-ui-docs demos → dist/demo-metadata.json  (cross-package dependency!)
                               ↓
 ts-json-schema-generator → TypeScript type extraction
                               ↓

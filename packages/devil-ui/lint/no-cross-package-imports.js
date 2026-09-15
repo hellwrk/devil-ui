@@ -3,13 +3,13 @@ import { defineRule } from "@oxlint/plugins";
 const RULE_NAME = "no-cross-package-imports";
 
 // Known package directory names in this monorepo
-const PACKAGE_DIRS = new Set(["devil-ui", "kumo-docs-astro", "kumo-figma"]);
+const PACKAGE_DIRS = new Set(["devil-ui", "devil-ui-docs", "devil-ui-screenshot-worker"]);
 
 // Pattern to detect relative imports that traverse up to packages/ level
 // and then into a sibling package directory.
 // This looks for paths like:
-//   ../../devil-ui/... (from packages/kumo-docs-astro/src/foo.ts)
-//   ../../../devil-ui/... (from packages/kumo-docs-astro/src/deep/foo.ts)
+//   ../../devil-ui/... (from packages/devil-ui-docs/src/foo.ts)
+//   ../../../devil-ui/... (from packages/devil-ui-docs/src/deep/foo.ts)
 //
 // The key insight: we need enough "../" to escape the current package's src/
 // directory and land in packages/, then go into another package.

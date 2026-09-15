@@ -88,8 +88,6 @@ jobs:
           name: devil-ai
           path: packages/devil-ui/ai
       - uses: ./.github/actions/vite-task-cache
-      # kumo-figma imports generated JSON data; type-aware lint needs it
-      - run: vp run gen:figma-data
       - run: vp run --filter @hellwrk/devil-ui lint:oxlint
       - run: vp lint packages/*/src
 

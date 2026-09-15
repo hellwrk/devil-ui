@@ -16,10 +16,10 @@ echo "🔨 Building devil-ui library..."
 pnpm --filter @hellwrk/devil-ui build
 
 echo "🔨 Building devil-docs..."
-pnpm --filter @cloudflare/kumo-docs-astro build
+pnpm --filter @hellwrk/devil-ui-docs build
 
 echo "🚀 Deploying to staging..."
-cd packages/kumo-docs-astro
+cd packages/devil-ui-docs
 pnpm exec wrangler deploy --env staging
 
 echo "🎉 Devil docs staging deployment complete!"

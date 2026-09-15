@@ -67,10 +67,10 @@ import {
   SUB_COMPONENT_OVERRIDES,
 } from "./metadata.js";
 
-// External imports - demo examples from kumo-docs-astro
+// External imports - demo examples from devil-ui-docs
 import { existsSync } from "node:fs";
 
-// Type for demo metadata (matches kumo-docs-astro output)
+// Type for demo metadata (matches devil-ui-docs output)
 interface DemoMetadata {
   generatedAt: string;
   version: string;
@@ -89,13 +89,13 @@ interface DemoMetadata {
 }
 
 /**
- * Load demo examples from kumo-docs-astro's generated metadata file.
+ * Load demo examples from devil-ui-docs's generated metadata file.
  * Returns a map compatible with the existing storyExamples interface.
  */
 function loadDemoExamples(): Map<string, { aiExamples: string[] }> {
   const demoMetadataPath = join(
     __dirname,
-    "../../../kumo-docs-astro/dist/demo-metadata.json",
+    "../../../devil-ui-docs/dist/demo-metadata.json",
   );
 
   if (!existsSync(demoMetadataPath)) {
@@ -103,7 +103,7 @@ function loadDemoExamples(): Map<string, { aiExamples: string[] }> {
       `Warning: demo-metadata.json not found at ${demoMetadataPath}`,
     );
     console.warn(
-      "Run 'pnpm --filter @cloudflare/kumo-docs-astro codegen:demos' first",
+      "Run 'pnpm --filter @hellwrk/devil-ui-docs codegen:demos' first",
     );
     return new Map();
   }
@@ -782,7 +782,7 @@ async function generateRegistry(): Promise<GenerateRegistryResult> {
     }
   }
 
-  // Load examples from demo files (kumo-docs-astro)
+  // Load examples from demo files (devil-ui-docs)
   console.log("\nLoading examples from demo files...");
   const storyExamples = loadDemoExamples();
 
@@ -864,7 +864,7 @@ async function generateRegistry(): Promise<GenerateRegistryResult> {
   saveCache(newCache, cachePath, cacheDir);
 
   // Add InputArea as a synthetic component (uses Input's variants but has its own dimensions)
-  // InputArea doesn't exist as a separate component file but needs registry metadata for Figma plugin
+  // InputArea doesn't exist as a separate component file but needs registry metadata for registry plugin
   if (COMPONENT_STYLING_METADATA.InputArea) {
     components.InputArea = {
       name: "InputArea",
@@ -952,7 +952,7 @@ async function generateRegistry(): Promise<GenerateRegistryResult> {
     if (!byCategory.Input) {
       byCategory.Input = [];
     }
-    // Don't add to byName search (it's a synthetic entry for Figma plugin only)
+    // Don't add to byName search (it's a synthetic entry for registry consumers only)
   }
 
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);

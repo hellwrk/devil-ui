@@ -128,7 +128,7 @@ export function bannerVariants({
   );
 
   return cn(
-    // Structural base styles (exported as DEVIL_BANNER_BASE_STYLES for Figma plugin)
+    // Structural base styles (exported as DEVIL_BANNER_BASE_STYLES for registry consumers)
     DEVIL_BANNER_BASE_STYLES,
     // Apply variant styles from DEVIL_BANNER_VARIANTS
     resolvedVariant.classes,

@@ -1,0 +1,167 @@
+---
+import { Badge, LinkButton } from "@hellwrk/devil-ui";
+import { Reveal } from "./Reveal";
+---
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap"
+/>
+
+<section id="top" class="relative overflow-hidden">
+  <!-- full-bleed infernal sky: three copies of the same plate drift in
+       opposite directions so the smoke churns around a steady glow -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 overflow-hidden bg-devil-canvas"
+  >
+    <img
+      src="/hero/Infernal_sky_.jpeg"
+      alt=""
+      aria-hidden="true"
+      class="hero-sky hero-sky-base h-full w-full object-cover select-none"
+    />
+    <img
+      src="/hero/Infernal_sky_.jpeg"
+      alt=""
+      aria-hidden="true"
+      class="hero-sky hero-sky-drift hero-sky-ring h-full w-full object-cover select-none"
+    />
+    <img
+      src="/hero/Infernal_sky_.jpeg"
+      alt=""
+      aria-hidden="true"
+      class="hero-sky hero-sky-drift hero-sky-low h-full w-full object-cover select-none"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/40"
+    >
+    </div>
+  </div>
+
+  <!-- fade into the page background at the bottom -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-devil-canvas"
+  >
+  </div>
+
+  <div
+    class="relative flex min-h-[100svh] flex-col items-center justify-center px-4 pt-28 pb-16 text-center md:px-6"
+  >
+    <Reveal client:visible>
+      <Badge
+        variant="outline"
+        className="border-white/40 bg-black/40 font-mono text-white uppercase tracking-widest backdrop-blur-sm"
+      >
+        Component library
+      </Badge>
+      <h1
+        aria-label="devil-ui"
+        class="mt-6 font-[Pirata_One] text-[clamp(4.5rem,16vw,12rem)] leading-[0.85] text-white select-none"
+      >
+        DEVIL-UI
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
+        Import what you need, own what you ship. Themeable, accessible
+        React components built on Base UI and Tailwind v4.
+      </p>
+      <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+        <LinkButton href="/installation" variant="primary" size="lg">
+          Get started
+        </LinkButton>
+        <LinkButton href="#showcase" variant="secondary" size="lg">
+          See components
+        </LinkButton>
+      </div>
+    </Reveal>
+  </div>
+</section>
+
+<style>
+  /* Each plate is oversized (scale) so a small translate never reveals an
+     edge; the movement is pure translation — no zoom. Different masks and
+     durations make the ring and the low smoke churn at different speeds. */
+  .hero-sky {
+    position: absolute;
+    inset: 0;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .hero-sky-base {
+    animation: hero-sky-a 52s ease-in-out infinite alternate;
+  }
+
+  .hero-sky-drift {
+    opacity: 0.85;
+  }
+
+  /* keeps the central glow clear, drifts only the surrounding smoke */
+  .hero-sky-ring {
+    -webkit-mask-image: radial-gradient(
+      ellipse 48% 54% at 50% 44%,
+      transparent 0%,
+      transparent 48%,
+      #000 80%
+    );
+    mask-image: radial-gradient(
+      ellipse 48% 54% at 50% 44%,
+      transparent 0%,
+      transparent 48%,
+      #000 80%
+    );
+    animation: hero-sky-b 37s ease-in-out infinite alternate;
+  }
+
+  /* keeps the lower billows, which roll the other way */
+  .hero-sky-low {
+    -webkit-mask-image: linear-gradient(
+      to top,
+      #000 0%,
+      #000 26%,
+      transparent 60%
+    );
+    mask-image: linear-gradient(to top, #000 0%, #000 26%, transparent 60%);
+    animation: hero-sky-c 44s ease-in-out infinite alternate;
+  }
+
+  @keyframes hero-sky-a {
+    0% {
+      transform: translate3d(-2.4%, 1.4%, 0) scale(1.16);
+    }
+    100% {
+      transform: translate3d(2.4%, -1.8%, 0) scale(1.16);
+    }
+  }
+
+  @keyframes hero-sky-b {
+    0% {
+      transform: translate3d(3.4%, -1.6%, 0) scale(1.22);
+    }
+    100% {
+      transform: translate3d(-3.4%, 1.8%, 0) scale(1.22);
+    }
+  }
+
+  @keyframes hero-sky-c {
+    0% {
+      transform: translate3d(-2.8%, 0.8%, 0) scale(1.26);
+    }
+    100% {
+      transform: translate3d(3.2%, -1%, 0) scale(1.26);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-sky,
+    .hero-sky-base,
+    .hero-sky-drift,
+    .hero-sky-ring,
+    .hero-sky-low {
+      animation: none;
+      transform: scale(1.16);
+    }
+  }
+</style>

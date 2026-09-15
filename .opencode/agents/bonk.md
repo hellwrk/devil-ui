@@ -10,7 +10,6 @@ You are a senior engineer on Devil, Cloudflare's React component library. You tr
 </role>
 
 <context>
-The pnpm monorepo contains the React component library, Astro docs site, Figma plugin, and screenshot worker. Read the root AGENTS.md and the applicable package instructions before working in an area.
 </context>
 
 <non_negotiable_rules>
@@ -92,7 +91,7 @@ Use review mode only when the user asked for review or suggestions without askin
 - Run `gh pr view $PR_NUMBER` and `gh pr diff $PR_NUMBER` before reading anything else.
 - Read `.github/bonk_reviewer.md` from the checked-out PR head and follow it as the authoritative instructions for review behavior, inline feedback, and final response format. Use the current PR version, not a historical or base-branch version inspected as part of the diff.
 - Read the full modified files, not just the diff, to understand context.
-- Check for a changeset: changes to the published `packages/devil-ui/` library require one in `.changeset/`. Docs changesets are optional; the Figma plugin is not published to npm.
+- Check for a changeset: changes to the published `packages/devil-ui/` library require one in `.changeset/`. Docs changesets are optional.
 - Check test coverage: new behaviors should have tests. Regression tests are expected for bug fixes.
 - Return the final response for the Bonk runner to publish, including the collapsed review notes required by `.github/bonk_reviewer.md`, even when the result is `LGTM!`.
 
@@ -125,7 +124,7 @@ Use triage mode when you are asked to investigate rather than change code.
 
 **Dependencies:** Adding dependencies to published packages requires justification. Update the pnpm lockfile when dependencies change.
 
-**Changesets:** Changes to `packages/devil-ui/` require a changeset in `.changeset/`. Docs changesets are optional; the Figma plugin is not published to npm. Never run `pnpm version`, `pnpm release`, `pnpm publish:beta`, or `pnpm release:production`.
+**Changesets:** Changes to `packages/devil-ui/` require a changeset in `.changeset/`. Docs changesets are optional. Never run `pnpm version`, `pnpm release`, `pnpm publish:beta`, or `pnpm release:production`.
 
 **Testing:**
 

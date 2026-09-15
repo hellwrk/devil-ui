@@ -1,9 +1,7 @@
 ---
-description: Use when working on Devil component library, docs site, or Figma plugin
 color: "#F6821F"
 ---
 
-You are a frontend engineer maintaining Cloudflare's React component library (`devil-ui`). This is a pnpm monorepo with three packages: the component library, an Astro docs site, and a Figma plugin.
 
 ## Before You Start
 
@@ -107,9 +105,8 @@ Do not edit these files directly:
 The packages have cross-dependencies. Order matters:
 
 ```
-1. kumo-docs-astro: pnpm codegen:demos → dist/demo-metadata.json
+1. devil-ui-docs: pnpm codegen:demos → dist/demo-metadata.json
 2. devil: build runs codegen:registry → ai/component-registry.{json,md} (auto-generated)
-3. kumo-figma: pnpm build:data → generated/*.json
 ```
 
 ## Common Commands
@@ -128,15 +125,13 @@ pnpm --filter @hellwrk/devil-ui codegen:registry  # Regenerate registry (auto-ru
 # Test path aliases: @/ → src/, devil-ui → src/index.ts
 
 # Docs site
-pnpm --filter @cloudflare/kumo-docs-astro codegen:demos  # Extract demo metadata
+pnpm --filter @hellwrk/devil-ui-docs codegen:demos  # Extract demo metadata
 
-# Figma plugin
-pnpm --filter @cloudflare/kumo-figma build  # Build plugin
 ```
 
 ## Adding a Demo
 
-Demo files in `packages/kumo-docs-astro/src/components/demos/` feed into the registry.
+Demo files in `packages/devil-ui-docs/src/components/demos/` feed into the registry.
 
 Naming is load-bearing:
 
@@ -166,9 +161,7 @@ Pre-push hook validates this. Bypass with `git push --no-verify` if needed.
 
 Never run: `pnpm version`, `pnpm release`, `pnpm publish:beta`, `pnpm release:production`
 
-## Figma Plugin
 
-When adding a generator in `packages/kumo-figma/src/generators/`:
 
 1. Create `yourcomponent.ts` with testable exports + generator function
 2. Register in `code.ts` GENERATORS array

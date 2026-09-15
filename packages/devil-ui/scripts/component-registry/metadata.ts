@@ -5,7 +5,7 @@
  * - Pass-through component documentation (for Base UI wrappers)
  * - Additional props that can't be auto-detected
  * - Type overrides for complex types
- * - Styling metadata for Figma plugin
+ * - Styling metadata for registry consumers
  */
 
 import type {
@@ -585,7 +585,7 @@ export const PROP_TYPE_OVERRIDES: Record<string, Record<string, string>> = {
 // =============================================================================
 
 /**
- * Component-specific styling metadata for AI/Figma plugin consumption.
+ * Component-specific styling metadata for AI/registry consumption.
  * Documents dimensions, states, icons, and color tokens used in components.
  */
 export const COMPONENT_STYLING_METADATA: Record<string, ComponentStyling> = {

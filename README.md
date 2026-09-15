@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/hellwrk/devil-ui/main/packages/kumo-docs-astro/public/devil-ui-hd.png" alt="devil-ui" width="140" />
+  <img src="https://raw.githubusercontent.com/hellwrk/devil-ui/main/packages/devil-ui-docs/public/devil-ui-hd.png" alt="devil-ui" width="140" />
 </p>
 
 <h1 align="center">devil-ui</h1>
@@ -59,7 +59,6 @@ See [AGENTS.md](./AGENTS.md) for comprehensive development documentation includi
 - Semantic color tokens
 - Development workflows
 - CI/CD pipeline
-- Figma plugin
 
 ### Quick Start
 
@@ -69,17 +68,6 @@ pnpm dev                    # Start docs site at localhost:4321
 pnpm --filter @hellwrk/devil-ui test
 ```
 
-### Figma Plugin
-
-```bash
-# Optional: enable token sync during build
-# cp packages/kumo-figma/scripts/.env.example packages/kumo-figma/scripts/.env
-# $EDITOR packages/kumo-figma/scripts/.env  # set FIGMA_TOKEN (and optionally FIGMA_FILE_KEY)
-
-pnpm --filter @cloudflare/kumo-figma build
-# In Figma: Plugins > Development > Import plugin from manifest...
-# Select: packages/kumo-figma/src/manifest.json
-```
 
 ### Creating Components
 

@@ -103,7 +103,7 @@ deploy-docs-preview.sh → write-devil-docs-report.ts → ci/reports/devil-docs-
 - **Verify-after-publish**: Both beta (45s) and production (30s) scripts sleep then check npm registry. No retry logic.
 - **`DRY_RUN=true`**: Production release script gates all destructive operations; logs what would happen
 - **Hardcoded repo**: `github-api.ts` uses `owner: "cloudflare", repo: "devil"`
-- **Required secrets**: `NPM_TOKEN`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `GITHUB_TOKEN`, `FIGMA_TOKEN` (optional)
+- **Required secrets**: `NPM_TOKEN`, `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `GITHUB_TOKEN`
 - **Bonk authentication**: `github.token` for repository write-access checks; `CF_AI_GATEWAY_ACCOUNT_ID`, `CF_AI_GATEWAY_NAME`, and `CF_AI_GATEWAY_TOKEN` for AI Gateway
 - **Visual regression**: Creates ephemeral `vr-screenshots-{pr}-{runId}` branches for diff images
 - **Fork PR security**: `docs-preview-post-build.yml` handles fork PRs via `workflow_run` (no secrets in fork context)
